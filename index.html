@@ -3,154 +3,125 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARC STORE | المتجر الرقمي</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+  <title>ARC STORE | متجر الألعاب والخدمات الرقمية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
-      --bg-dark: #030305;
-      --bg-card: rgba(12, 12, 18, 0.88);
-      --accent-red: #ff003c;
-      --accent-red-bright: #ff1e53;
-      --accent-red-glow: rgba(255, 0, 60, 0.6);
+      --bg-main: #0b0b0f;
+      --bg-card: #13131c;
+      --bg-header: #0d0d12;
+      --accent-red: #e50914;
+      --accent-red-hover: #ff1e2a;
       --text-main: #ffffff;
-      --text-muted: #9595b2;
-      --border-glow: rgba(255, 0, 60, 0.35);
+      --text-muted: #9ca3af;
+      --border-color: #222232;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
-    body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; position: relative; padding-bottom: 80px; }
+    body { background-color: var(--bg-main); color: var(--text-main); min-height: 100vh; padding-bottom: 60px; }
 
-    /* Atmosphere Glows */
-    .bg-glow-1, .bg-glow-2 {
-      position: fixed; width: 500px; height: 500px; border-radius: 50%; filter: blur(160px); z-index: -1; pointer-events: none;
-      animation: pulseGlow 6s infinite alternate ease-in-out;
-    }
-    .bg-glow-1 { top: -120px; right: -120px; background: var(--accent-red); opacity: 0.3; }
-    .bg-glow-2 { bottom: -120px; left: -120px; background: #6100ff; opacity: 0.2; }
-
-    @keyframes pulseGlow {
-      0% { transform: scale(1); opacity: 0.25; }
-      100% { transform: scale(1.3); opacity: 0.4; }
-    }
-
+    /* Header */
     header {
-      position: sticky; top: 0; z-index: 1000; background: rgba(3, 3, 5, 0.92); backdrop-filter: blur(25px);
-      border-bottom: 2px solid var(--accent-red); padding: 16px 8%; display: flex; justify-content: space-between; align-items: center;
-      box-shadow: 0 5px 30px rgba(255, 0, 60, 0.25);
+      background: var(--bg-header); border-bottom: 1px solid var(--border-color);
+      position: sticky; top: 0; z-index: 1000; padding: 15px 5%;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo-area { display: flex; align-items: center; gap: 10px; font-size: 1.6rem; font-weight: 900; color: #fff; letter-spacing: 1px; }
+    .logo-area span { color: var(--accent-red); }
+
+    .header-controls { display: flex; align-items: center; gap: 15px; }
+    .currency-select {
+      background: #1a1a24; border: 1px solid var(--border-color); color: #fff;
+      padding: 8px 12px; border-radius: 8px; font-weight: 700; outline: none; cursor: pointer;
     }
 
-    .logo {
-      font-family: 'Orbitron', 'Cairo', sans-serif; font-size: 2.2rem; font-weight: 900; letter-spacing: 2px; color: #fff;
-      display: flex; align-items: center; gap: 12px; text-shadow: 0 0 25px var(--accent-red-glow);
-    }
-    .logo span { color: var(--accent-red); text-shadow: 0 0 20px var(--accent-red); }
+    /* Hero Section */
+    .hero { text-align: center; padding: 40px 20px 20px; }
+    .hero h1 { font-size: 2.5rem; font-weight: 900; margin-bottom: 10px; color: #fff; }
+    .hero p { color: var(--text-muted); font-size: 1.1rem; }
 
-    .currency-box {
-      display: flex; align-items: center; gap: 8px; background: rgba(255, 0, 60, 0.15); border: 1.5px solid var(--accent-red);
-      padding: 6px 14px; border-radius: 12px; box-shadow: 0 0 15px var(--accent-red-glow);
+    /* Categories Navigation Bar */
+    .categories-nav {
+      display: flex; justify-content: center; gap: 10px; padding: 0 20px; margin-bottom: 35px; flex-wrap: wrap;
     }
-    .currency-box label { font-weight: 800; font-size: 0.9rem; color: #fff; }
-    .currency-picker { background: transparent; border: none; color: #fff; font-weight: 900; font-size: 1rem; outline: none; cursor: pointer; }
-    .currency-picker option { background: #09090e; color: #fff; }
-
-    .hero { text-align: center; padding: 50px 20px 25px; position: relative; }
-    .hero-title {
-      font-size: 3.4rem; font-weight: 900; line-height: 1.15;
-      background: linear-gradient(135deg, #ffffff 0%, #ff4d73 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px;
-      text-shadow: 0 0 40px rgba(255, 0, 60, 0.3);
+    .cat-btn {
+      background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-muted);
+      padding: 10px 22px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; cursor: pointer;
+      transition: all 0.25s ease; display: flex; align-items: center; gap: 8px;
     }
-    .hero-subtitle { color: var(--text-muted); font-size: 1.2rem; max-width: 680px; margin: 0 auto 30px; }
-
-    .filters-container { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 45px; padding: 0 20px; }
-    .filter-btn {
-      background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 0, 60, 0.25); color: #fff; padding: 12px 26px;
-      border-radius: 50px; font-weight: 800; font-size: 0.98rem; cursor: pointer; backdrop-filter: blur(10px);
-      transition: all 0.35s ease; display: flex; align-items: center; gap: 8px;
-    }
-    .filter-btn:hover, .filter-btn.active {
-      background: var(--accent-red); border-color: var(--accent-red-bright); box-shadow: 0 0 30px var(--accent-red-glow); transform: translateY(-3px);
+    .cat-btn:hover, .cat-btn.active {
+      background: var(--accent-red); border-color: var(--accent-red); color: #fff; transform: translateY(-2px);
     }
 
-    .container { max-width: 1300px; margin: 0 auto; padding: 0 25px; }
-    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 32px; }
+    /* Products Grid */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
 
-    .card {
-      background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: 24px; overflow: hidden;
-      backdrop-filter: blur(20px); transition: all 0.4s ease; display: flex; flex-direction: column; justify-content: space-between;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    .product-card {
+      background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px;
+      overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;
+      transition: transform 0.3s ease, border-color 0.3s ease;
     }
-    .card:hover {
-      transform: translateY(-10px) scale(1.02); border-color: var(--accent-red-bright);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 0, 60, 0.45);
-    }
+    .product-card:hover { transform: translateY(-5px); border-color: var(--accent-red); }
 
-    .card-img-box { position: relative; width: 100%; height: 200px; overflow: hidden; }
-    .card-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; }
-    .card:hover .card-img { transform: scale(1.08); }
+    .product-img-container { position: relative; width: 100%; height: 180px; background: #000; overflow: hidden; }
+    .product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .product-card:hover .product-img { transform: scale(1.05); }
 
-    .card-badge {
-      position: absolute; top: 12px; right: 12px; background: rgba(3, 3, 5, 0.85); color: var(--accent-red);
-      border: 1px solid var(--accent-red); font-size: 0.8rem; padding: 4px 14px; border-radius: 20px; font-weight: 800;
-    }
-
-    .card-body { padding: 22px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
-    .card-title { font-size: 1.35rem; font-weight: 900; margin-bottom: 10px; }
-    .card-desc { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
-    .card-price { font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 18px; text-shadow: 0 0 15px rgba(255,255,255,0.2); }
-
-    .btn-buy {
-      width: 100%; background: linear-gradient(135deg, var(--accent-red) 0%, #a80027 100%); color: #fff; border: none;
-      padding: 15px; border-radius: 14px; font-weight: 900; font-size: 1.05rem; cursor: pointer; display: flex;
-      justify-content: center; align-items: center; gap: 10px; box-shadow: 0 5px 25px var(--accent-red-glow); transition: all 0.3s ease;
-    }
-    .btn-buy:hover { box-shadow: 0 8px 35px var(--accent-red-glow); transform: translateY(-2px); }
-
-    .empty-msg {
-      grid-column: 1/-1; text-align: center; padding: 60px 20px; background: var(--bg-card); border: 1px dashed var(--border-glow);
-      border-radius: 24px; color: var(--text-muted); font-size: 1.1rem;
+    .product-tag {
+      position: absolute; top: 10px; right: 10px; background: rgba(11, 11, 15, 0.85);
+      border: 1px solid var(--border-color); color: var(--accent-red); font-size: 0.75rem;
+      padding: 4px 10px; border-radius: 6px; font-weight: 800; backdrop-filter: blur(5px);
     }
 
-    /* Modal */
+    .product-body { padding: 18px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+    .product-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 8px; color: #fff; line-height: 1.4; }
+    .product-desc { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+    .product-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+    .product-price { font-size: 1.3rem; font-weight: 900; color: #fff; }
+
+    .buy-btn {
+      background: var(--accent-red); color: #fff; border: none; padding: 8px 16px;
+      border-radius: 8px; font-weight: 800; font-size: 0.9rem; cursor: pointer; transition: background 0.2s;
+    }
+    .buy-btn:hover { background: var(--accent-red-hover); }
+
+    .empty-state { grid-column: 1/-1; text-align: center; padding: 50px; color: var(--text-muted); background: var(--bg-card); border-radius: 16px; border: 1px dashed var(--border-color); }
+
+    /* Modal Checkout */
     .modal {
-      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.92); backdrop-filter: blur(20px); z-index: 2000;
-      display: none; justify-content: center; align-items: center; padding: 20px;
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px);
+      z-index: 2000; display: none; justify-content: center; align-items: center; padding: 20px;
     }
     .modal-box {
-      background: #09090e; border: 2px solid var(--accent-red); width: 100%; max-width: 530px; border-radius: 28px;
-      padding: 30px; box-shadow: 0 0 60px rgba(255, 0, 60, 0.45); animation: zoomIn 0.3s ease;
+      background: var(--bg-card); border: 1px solid var(--border-color); width: 100%; max-width: 480px;
+      border-radius: 20px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
-    @keyframes zoomIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-    .form-group { margin-bottom: 18px; }
-    .form-group label { display: block; margin-bottom: 8px; font-weight: 800; font-size: 0.95rem; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 6px; font-weight: 700; font-size: 0.9rem; }
     .form-control {
-      width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 0, 60, 0.3); color: #fff;
-      padding: 14px; border-radius: 12px; outline: none; font-size: 1rem; font-weight: 600;
+      width: 100%; background: #0b0b0f; border: 1px solid var(--border-color); color: #fff;
+      padding: 12px; border-radius: 10px; outline: none; font-size: 0.95rem;
     }
-    .form-control:focus { border-color: var(--accent-red); box-shadow: 0 0 20px var(--accent-red-glow); }
+    .form-control:focus { border-color: var(--accent-red); }
 
-    .pay-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .pay-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
     .pay-btn {
-      background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 0, 60, 0.3); color: #fff; padding: 12px;
-      border-radius: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s;
+      background: #0b0b0f; border: 1px solid var(--border-color); color: #fff; padding: 10px;
+      border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
     }
-    .pay-btn.selected { border-color: var(--accent-red); background: rgba(255, 0, 60, 0.25); box-shadow: 0 0 20px var(--accent-red-glow); }
+    .pay-btn.selected { border-color: var(--accent-red); background: rgba(229, 9, 20, 0.15); }
   </style>
 </head>
 <body>
 
-  <div class="bg-glow-1"></div>
-  <div class="bg-glow-2"></div>
-
   <header>
-    <div class="logo"><i class="fa-solid fa-bolt"></i> ARC <span>STORE</span></div>
-    <div class="currency-box">
-      <i class="fa-solid fa-coins" style="color:var(--accent-red)"></i>
-      <label for="currencySelect">العملة:</label>
-      <select id="currencySelect" class="currency-picker" onchange="changeCurrency(this.value)">
+    <div class="logo-area"><i class="fa-solid fa-gamepad" style="color:var(--accent-red)"></i> ARC <span>STORE</span></div>
+    <div class="header-controls">
+      <select id="currencySelect" class="currency-select" onchange="changeCurrency(this.value)">
         <option value="USD">USD ($)</option>
         <option value="AED">AED (درهم)</option>
         <option value="SAR">SAR (ريال)</option>
@@ -159,35 +130,35 @@
   </header>
 
   <section class="hero">
-    <h1 class="hero-title">متجر ARC STORE الرقمي</h1>
-    <p class="hero-subtitle">متجر الخدمات والمنتجات الرقمية الشامل</p>
+    <h1>وجهتك المثالية للألعاب والخدمات الرقمية</h1>
+    <p>أسرع تسليم، أفضل الأسعار، ودعم فني متواصل</p>
   </section>
 
-  <!-- أزرار الأقسام الديناميكية -->
-  <div class="filters-container" id="filtersContainer"></div>
+  <!-- الأقسام المتغيرة ديناميكياً -->
+  <div class="categories-nav" id="categoriesContainer"></div>
 
   <main class="container">
-    <div class="products-grid" id="grid"></div>
+    <div class="products-grid" id="productsGrid"></div>
   </main>
 
-  <!-- نافذة الطلب والتحويل -->
+  <!-- نافذة الطلب -->
   <div class="modal" id="checkoutModal">
     <div class="modal-box">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
-        <h3 id="modalTitle" style="font-size: 1.4rem; font-weight: 900;">تأكيد الطلب</h3>
-        <i class="fa-solid fa-xmark" style="cursor:pointer; font-size: 1.5rem; color: var(--accent-red);" onclick="closeCheckout()"></i>
+        <h3 id="modalTitle" style="font-size: 1.2rem; font-weight: 800;">تأكيد الطلب</h3>
+        <i class="fa-solid fa-xmark" style="cursor:pointer; font-size: 1.3rem; color: var(--text-muted);" onclick="closeCheckout()"></i>
       </div>
 
-      <form id="payForm" onsubmit="executeOrder(event)">
+      <form onsubmit="executeOrder(event)">
         <div class="form-group">
           <label id="qtyLabel">الكمية المطلوبة</label>
           <input type="number" id="orderQty" class="form-control" oninput="recalcPrice()">
-          <small id="qtyNotice" style="color: var(--accent-red); font-size: 0.8rem; display: none; margin-top: 5px;">* الحد الأدنى لطلبات هذا القسم هو 250 عدداً</small>
+          <small id="qtyNotice" style="color: var(--accent-red); font-size: 0.75rem; display: none; margin-top: 4px;">* الحد الأدنى لطلبات هذا القسم هو 250</small>
         </div>
 
         <div class="form-group">
-          <label>رابط الحساب / معرف المستخدم / الإيميل للتفعيل</label>
-          <input type="text" id="targetUrl" class="form-control" placeholder="أدخل بيانات التفعيل هنا..." required>
+          <label>رابط الحساب / معرف المستخدم / الإيميل</label>
+          <input type="text" id="targetUrl" class="form-control" placeholder="أدخل معلومات التفعيل هنا..." required>
         </div>
 
         <div class="form-group">
@@ -198,13 +169,13 @@
           </div>
         </div>
 
-        <div style="background: rgba(255,0,60,0.15); border: 1px dashed var(--accent-red); padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
-          <span style="font-weight: 800;">المبلغ الإجمالي:</span>
-          <span id="totalCost" style="font-size: 1.6rem; font-weight: 900; color: var(--accent-red);">0.00</span>
+        <div style="background: #0b0b0f; border: 1px solid var(--border-color); padding: 12px; border-radius: 10px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.9rem; color: var(--text-muted);">المبلغ الإجمالي:</span>
+          <span id="totalCost" style="font-size: 1.4rem; font-weight: 900; color: var(--accent-red);">0.00</span>
         </div>
 
-        <button type="submit" class="btn-buy" style="background: #00c853; box-shadow: 0 5px 25px rgba(0, 200, 83, 0.4);">
-          <i class="fa-brands fa-whatsapp"></i> تأكيد الطلب والدفع عبر الواتساب
+        <button type="submit" class="buy-btn" style="width: 100%; padding: 12px; font-size: 1rem; background: #25d366;">
+          <i class="fa-brands fa-whatsapp"></i> إتمام الطلب عبر الواتساب
         </button>
       </form>
     </div>
@@ -223,74 +194,69 @@
     let currentProd = null;
     let currentCat = null;
     let payMethod = 'card';
-    let currentCategoryFilter = 'all';
+    let currentFilter = 'all';
 
     function changeCurrency(curr) {
       selectedCurrency = curr;
-      renderCards(currentCategoryFilter);
+      renderProducts(currentFilter);
     }
 
     function renderFilters() {
-      const container = document.getElementById('filtersContainer');
-      container.innerHTML = `
-        <button class="filter-btn active" onclick="filterCat('all', this)">
-          <i class="fa-solid fa-fire"></i> الكل
-        </button>
-      `;
-
+      const container = document.getElementById('categoriesContainer');
+      container.innerHTML = `<button class="cat-btn active" onclick="filterCat('all', this)"><i class="fa-solid fa-store"></i> الكل</button>`;
+      
       categories.forEach(cat => {
-        container.innerHTML += `
-          <button class="filter-btn" onclick="filterCat('${cat.id}', this)">
-            <i class="fa-solid ${cat.icon || 'fa-tag'}"></i> ${cat.name}
-          </button>
-        `;
+        container.innerHTML += `<button class="cat-btn" onclick="filterCat('${cat.id}', this)"><i class="fa-solid ${cat.icon || 'fa-tag'}"></i> ${cat.name}</button>`;
       });
     }
 
-    function renderCards(filter = 'all') {
-      currentCategoryFilter = filter;
-      const grid = document.getElementById('grid');
+    function renderProducts(filter = 'all') {
+      currentFilter = filter;
+      const grid = document.getElementById('productsGrid');
       grid.innerHTML = '';
+
+      categories = JSON.parse(localStorage.getItem('arc_categories')) || [];
+      products = JSON.parse(localStorage.getItem('arc_products')) || [];
+
       const list = filter === 'all' ? products : products.filter(p => p.category === filter);
 
       if(list.length === 0) {
-        grid.innerHTML = `<div class="empty-msg"><i class="fa-solid fa-box-open" style="font-size: 2rem; margin-bottom: 10px; color: var(--accent-red);"></i><br>لا توجد منتجات مضافة حالياً بالمتجر. أضف منتجاتك من لوحة التحكم (admin.html)</div>`;
+        grid.innerHTML = `<div class="empty-state"><i class="fa-solid fa-gamepad" style="font-size: 2rem; margin-bottom: 10px; color: var(--accent-red);"></i><br>لا توجد منتجات متوفرة حالياً في هذا القسم.</div>`;
         return;
       }
 
       list.forEach(p => {
         const cat = categories.find(c => c.id === p.category);
         const isBoost = cat ? (cat.type === 'boost') : false;
-        const basePrice = p.priceUSD || p.price || 0;
-        const convertedPrice = (basePrice * rates[selectedCurrency]).toFixed(2);
-        const priceDisplay = isBoost ? `${convertedPrice} ${symbols[selectedCurrency]} / 1000` : `${convertedPrice} ${symbols[selectedCurrency]}`;
+        const basePrice = parseFloat(p.priceUSD || p.price || 0);
+        const converted = (basePrice * rates[selectedCurrency]).toFixed(2);
+        const priceText = isBoost ? `${converted} ${symbols[selectedCurrency]} / 1000` : `${converted} ${symbols[selectedCurrency]}`;
 
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <div class="card-img-box">
-            <img src="${p.image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80'}" class="card-img" alt="${p.title}">
-            <span class="card-badge">${cat ? cat.name : 'منتج'}</span>
-          </div>
-          <div class="card-body">
-            <div>
-              <h3 class="card-title">${p.title}</h3>
-              <p class="card-desc">${p.desc || 'منتج رقمي متوفر للتسليم الفوري.'}</p>
+        grid.innerHTML += `
+          <div class="product-card">
+            <div class="product-img-container">
+              <img src="${p.image || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&q=80'}" class="product-img" alt="${p.title}">
+              <span class="product-tag">${cat ? cat.name : 'منتج'}</span>
             </div>
-            <div>
-              <div class="card-price">${priceDisplay}</div>
-              <button class="btn-buy" onclick="openCheckout('${p.id}')"><i class="fa-solid fa-cart-shopping"></i> اطلب الآن</button>
+            <div class="product-body">
+              <div>
+                <h3 class="product-title">${p.title}</h3>
+                <p class="product-desc">${p.desc || 'منتج رقمي مضمون وتسليم سريع.'}</p>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">${priceText}</div>
+                <button class="buy-btn" onclick="openCheckout('${p.id}')">شراء</button>
+              </div>
             </div>
           </div>
         `;
-        grid.appendChild(card);
       });
     }
 
-    function filterCat(cat, btn) {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    function filterCat(id, btn) {
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      renderCards(cat);
+      renderProducts(id);
     }
 
     function openCheckout(id) {
@@ -304,15 +270,11 @@
       const qtyInput = document.getElementById('orderQty');
       const qtyNotice = document.getElementById('qtyNotice');
 
-      if (isBoost) {
-        qtyInput.value = 250;
-        qtyInput.min = 250;
-        qtyInput.step = 50;
+      if(isBoost) {
+        qtyInput.value = 250; qtyInput.min = 250; qtyInput.step = 50;
         qtyNotice.style.display = 'block';
       } else {
-        qtyInput.value = 1;
-        qtyInput.min = 1;
-        qtyInput.step = 1;
+        qtyInput.value = 1; qtyInput.min = 1; qtyInput.step = 1;
         qtyNotice.style.display = 'none';
       }
 
@@ -326,10 +288,10 @@
       if(!currentProd) return;
       const qty = parseFloat(document.getElementById('orderQty').value) || 0;
       const isBoost = currentCat ? (currentCat.type === 'boost') : false;
-      const basePrice = currentProd.priceUSD || currentProd.price || 0;
+      const basePrice = parseFloat(currentProd.priceUSD || currentProd.price || 0);
       let totalUSD = isBoost ? (qty / 1000) * basePrice : qty * basePrice;
-      const totalConverted = (totalUSD * rates[selectedCurrency]).toFixed(2);
-      document.getElementById('totalCost').innerText = `${totalConverted} ${symbols[selectedCurrency]}`;
+      const finalPrice = (totalUSD * rates[selectedCurrency]).toFixed(2);
+      document.getElementById('totalCost').innerText = `${finalPrice} ${symbols[selectedCurrency]}`;
     }
 
     function selectPay(type) {
@@ -343,42 +305,39 @@
       const qty = parseFloat(document.getElementById('orderQty').value);
       const isBoost = currentCat ? (currentCat.type === 'boost') : false;
 
-      if (isBoost && qty < 250) {
-        alert('أقل كمية لخدمات هذا القسم هي 250!');
-        return;
-      }
+      if(isBoost && qty < 250) { alert('الحد الأدنى للكمية هو 250'); return; }
 
       const target = document.getElementById('targetUrl').value;
-      const basePrice = currentProd.priceUSD || currentProd.price || 0;
+      const basePrice = parseFloat(currentProd.priceUSD || currentProd.price || 0);
       let totalUSD = isBoost ? (qty / 1000) * basePrice : qty * basePrice;
-      const totalConverted = (totalUSD * rates[selectedCurrency]).toFixed(2) + ' ' + symbols[selectedCurrency];
+      const totalFormatted = (totalUSD * rates[selectedCurrency]).toFixed(2) + ' ' + symbols[selectedCurrency];
 
-      const newOrder = {
+      const order = {
         id: 'ORD-' + Date.now(),
         productTitle: currentProd.title,
         quantity: qty,
-        totalPrice: totalConverted,
+        totalPrice: totalFormatted,
         targetUrl: target,
         payMethod: payMethod === 'card' ? 'بطاقة ائتمانية' : 'Apple Pay',
         date: new Date().toLocaleString('ar-EG')
       };
 
-      orders.unshift(newOrder);
+      orders.unshift(order);
       localStorage.setItem('arc_orders', JSON.stringify(orders));
 
-      const msg = `*طلب جديد من متجر ARC STORE* ⚡\n\n` +
-        `• *المنتج:* ${currentProd.title}\n` +
-        `• *الكمية:* ${qty}\n` +
-        `• *المبلغ الإجمالي:* ${totalConverted}\n` +
-        `• *طريقة الدفع:* ${newOrder.payMethod}\n` +
-        `• *بيانات التفعيل/الرابط:* ${target}\n\nيرجى تأكيد الطلب.`;
-
+      const msg = `*طلب جديد من ARC STORE* 🎮\n\n• المنتج: ${currentProd.title}\n• الكمية: ${qty}\n• المبلغ: ${totalFormatted}\n• طريقة الدفع: ${order.payMethod}\n• الحساب/الرابط: ${target}`;
       closeCheckout();
       window.open(`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
+    setInterval(() => {
+      if(localStorage.getItem('arc_categories') !== JSON.stringify(categories)) {
+        renderFilters(); renderProducts(currentFilter);
+      }
+    }, 1000);
+
     renderFilters();
-    renderCards();
+    renderProducts();
   </script>
 </body>
 </html>
