@@ -77,7 +77,7 @@ footer a{color:var(--rd2);cursor:pointer}
 .dp{position:absolute;top:0;bottom:0;left:0;width:min(440px,100%);background:#070708;border-right:1px solid var(--rd);box-shadow:0 0 40px rgba(255,26,46,.4);display:flex;flex-direction:column;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
 .dh{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--ln)}
 .dh h3{margin:0;font-size:1.2rem}
-#cartBody{flex:1;overflow-y:auto;padding:12px 16px}
+.sc{flex:1;overflow-y:auto;padding:12px 16px}.cf{display:grid;gap:8px;margin-top:8px}.cf h4{margin:6px 0 0;font-size:1rem}.ph2{display:grid;grid-template-columns:130px 1fr;gap:6px}.cc{display:grid;grid-template-columns:1fr auto;gap:6px}.desc{color:var(--mt);font-size:.85rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.eta{font-size:.82rem;color:var(--rd2)}.dis{color:#4ade80;font-size:.9rem;text-align:left;direction:ltr;min-height:1.2em}
 .ci{border:1px solid var(--ln);border-radius:12px;padding:10px;margin-bottom:10px;background:var(--pn)}
 .ci .t{display:flex;gap:10px;align-items:center}
 .ci .th{width:54px;height:54px;border-radius:8px;overflow:hidden;background:#000;flex:none;display:flex;align-items:center;justify-content:center}
@@ -133,10 +133,19 @@ footer a{color:var(--rd2);cursor:pointer}
 
 <div class="drawer" id="drawer"><div class="dp">
  <div class="dh"><h3>🛒 سلة التسوق</h3><button class="x" id="closeCart">إغلاق</button></div>
- <div id="cartBody"></div>
+ <div class="sc"><div id="cartBody"></div>
+ <div class="cf" id="cartForm">
+  <h4>بيانات العميل</h4>
+  <input class="fld" id="cn" placeholder="الاسم الكامل" autocomplete="name">
+  <input class="fld" id="ce" type="email" dir="ltr" placeholder="البريد الإلكتروني" autocomplete="email">
+  <div class="ph2"><select class="fld" id="cc" dir="ltr"><option value="971">🇦🇪 +971</option><option value="966">🇸🇦 +966</option><option value="965">🇰🇼 +965</option><option value="974">🇶🇦 +974</option><option value="973">🇧🇭 +973</option><option value="968">🇴🇲 +968</option><option value="20">🇪🇬 +20</option><option value="962">🇯🇴 +962</option><option value="964">🇮🇶 +964</option><option value="961">🇱🇧 +961</option><option value="967">🇾🇪 +967</option><option value="963">🇸🇾 +963</option><option value="970">🇵🇸 +970</option><option value="249">🇸🇩 +249</option><option value="218">🇱🇾 +218</option><option value="212">🇲🇦 +212</option><option value="213">🇩🇿 +213</option><option value="216">🇹🇳 +216</option><option value="90">🇹🇷 +90</option><option value="44">🇬🇧 +44</option><option value="1">🇺🇸 +1</option></select><input class="fld" id="cp" type="tel" inputmode="tel" dir="ltr" placeholder="رقم الهاتف" autocomplete="tel-national"></div>
+  <div class="cc"><input class="fld" id="cd" dir="ltr" placeholder="كود الخصم (إن وجد)"><button class="x" id="capp">تطبيق</button></div>
+  <div class="lt" id="cmsg"></div>
+  <input class="fld" id="cnote" placeholder="ملاحظات (اختياري)">
+ </div></div>
  <div class="df" id="cartFoot">
+  <div class="dis" id="cdis"></div>
   <div class="tot"><span>الإجمالي</span><strong id="ctot">0</strong></div>
-  <input class="fld" id="cnote" placeholder="ملاحظات (اختياري)" style="margin-bottom:10px">
   <button class="btn wa" id="go">إتمام الطلب عبر واتساب</button><div class="err" id="err"></div>
  </div>
 </div></div>
@@ -147,9 +156,9 @@ footer a{color:var(--rd2);cursor:pointer}
 var KEY='arcstore_draft3',CS={AED:'د.إ',SAR:'ر.س',USD:'$'};
 function $(i){return document.getElementById(i)}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-var DEF={"wa":"966500000000","pass":"1234","rates":{"AED":1,"SAR":1.02,"USD":0.2723},"cats":[{"id":"c1","name":"المتابعين"},{"id":"c2","name":"المشاهدات"},{"id":"c3","name":"الاشتراكات"}],"prods":[{"id":"p1","cat":"c1","name":"متابعين انستغرام","price":15,"per":1000,"min":250,"max":100000,"unit":"متابع","img":""},{"id":"p2","cat":"c1","name":"متابعين تيك توك","price":18,"per":1000,"min":250,"max":100000,"unit":"متابع","img":""},{"id":"p3","cat":"c2","name":"مشاهدات تيك توك","price":2.2,"per":1000,"min":250,"max":1000000,"unit":"مشاهدة","img":""},{"id":"p4","cat":"c2","name":"مشاهدات انستغرام ريلز","price":2,"per":1000,"min":250,"max":1000000,"unit":"مشاهدة","img":""},{"id":"p5","cat":"c3","name":"اشتراك نتفليكس شهر","price":15,"per":1,"min":1,"max":12,"unit":"اشتراك","img":""},{"id":"p6","cat":"c3","name":"اشتراك سبوتيفاي شهر","price":11,"per":1,"min":1,"max":12,"unit":"اشتراك","img":""}]};
-var S=JSON.parse(JSON.stringify(window.ARC_DATA||DEF));
-var curC='AED',curCat=null,Q={},C=[];
+var DEF={"wa":"966500000000","pass":"1234","rates":{"AED":1,"SAR":1.02,"USD":0.2723},"cats":[{"id":"c1","name":"المتابعين"},{"id":"c2","name":"المشاهدات"},{"id":"c3","name":"الاشتراكات"}],"prods":[{"id":"p1","cat":"c1","name":"متابعين انستغرام","price":15,"per":1000,"min":250,"max":100000,"unit":"متابع","img":"","desc":"متابعين لحساب انستغرام. يبدأ التنفيذ بعد تأكيد الطلب.","eta":"من 1 إلى 24 ساعة"},{"id":"p2","cat":"c1","name":"متابعين تيك توك","price":18,"per":1000,"min":250,"max":100000,"unit":"متابع","img":"","desc":"متابعين لحساب تيك توك. يبدأ التنفيذ بعد تأكيد الطلب.","eta":"من 1 إلى 24 ساعة"},{"id":"p3","cat":"c2","name":"مشاهدات تيك توك","price":2.2,"per":1000,"min":250,"max":1000000,"unit":"مشاهدة","img":"","desc":"مشاهدات لفيديوهات تيك توك. أرسل رابط الفيديو عند الطلب.","eta":"خلال 6 ساعات"},{"id":"p4","cat":"c2","name":"مشاهدات انستغرام ريلز","price":2,"per":1000,"min":250,"max":1000000,"unit":"مشاهدة","img":"","desc":"مشاهدات لريلز انستغرام. أرسل رابط الريلز عند الطلب.","eta":"خلال 6 ساعات"},{"id":"p5","cat":"c3","name":"اشتراك نتفليكس شهر","price":15,"per":1,"min":1,"max":12,"unit":"اشتراك","img":"","desc":"اشتراك نتفليكس لمدة شهر. أرسل بريدك عند الطلب.","eta":"خلال ساعة"},{"id":"p6","cat":"c3","name":"اشتراك سبوتيفاي شهر","price":11,"per":1,"min":1,"max":12,"unit":"اشتراك","img":"","desc":"اشتراك سبوتيفاي لمدة شهر. أرسل بريدك عند الطلب.","eta":"خلال ساعة"}],"codes":[]};
+var S=JSON.parse(JSON.stringify(window.ARC_DATA||DEF));S.codes=S.codes||[];
+var curC='AED',curCat=null,Q={},C=[],D=null;
 function toast(m){var t=$('tt');t.textContent=m;t.style.display='block';clearTimeout(t._h);t._h=setTimeout(function(){t.style.display='none'},2800)}
 function P(id){return S.prods.filter(function(p){return p.id===id})[0]}
 function conv(a){return a*S.rates[curC]}
@@ -168,7 +177,7 @@ function renderTabs(){if(!S.cats.some(function(c){return c.id===curCat}))curCat=
 $('tabs').onclick=function(e){var id=e.target.dataset.id;if(id){curCat=id;renderTabs();renderProds()}};
 function renderProds(){var l=S.prods.filter(function(p){return p.cat===curCat});
  $('pgrid').innerHTML=l.length?l.map(function(p){var q=Q[p.id]=clamp(p,Q[p.id]);
-  return '<div class="card" data-id="'+p.id+'"><div class="pimg">'+img(p)+'</div><h3>'+esc(p.name)+'</h3><div class="pr">'+unitPrice(p)+'</div><small>الكمية: من '+N(p.min)+' إلى '+N(p.max)+'</small><div class="qrow"><button data-a="m">−</button><input class="fld" type="number" inputmode="numeric" value="'+q+'"><button data-a="p">+</button></div><div class="lt">الإجمالي: <b>'+fmt(line(p,q))+'</b></div><button class="btn pick" data-a="add">أضف إلى السلة</button></div>'}).join(''):'<p class="sub">لا توجد منتجات في هذا القسم حالياً.</p>'}
+  return '<div class="card" data-id="'+p.id+'"><div class="pimg">'+img(p)+'</div><h3>'+esc(p.name)+'</h3>'+(p.desc?'<div class="desc">'+esc(p.desc)+'</div>':'')+(p.eta?'<div class="eta">⏱ مدة التنفيذ: '+esc(p.eta)+'</div>':'')+'<div class="pr">'+unitPrice(p)+'</div><small>الكمية: من '+N(p.min)+' إلى '+N(p.max)+'</small><div class="qrow"><button data-a="m">−</button><input class="fld" type="number" inputmode="numeric" value="'+q+'"><button data-a="p">+</button></div><div class="lt">الإجمالي: <b>'+fmt(line(p,q))+'</b></div><button class="btn pick" data-a="add">أضف إلى السلة</button></div>'}).join(''):'<p class="sub">لا توجد منتجات في هذا القسم حالياً.</p>'}
 function cardUpd(c){var p=P(c.dataset.id),i=c.querySelector('input');c.querySelector('.lt b').textContent=fmt(line(p,clamp(p,i.value)))}
 $('pgrid').onclick=function(e){var a=e.target.dataset.a,c=e.target.closest('.card');if(!a||!c)return;var p=P(c.dataset.id),i=c.querySelector('input'),q=clamp(p,i.value);
  if(a==='m')q=clamp(p,q-stp(p));if(a==='p')q=clamp(p,q+stp(p));
@@ -181,8 +190,10 @@ $('pgrid').onchange=function(e){var c=e.target.closest('.card');if(c&&e.target.t
 function renderCart(){C=C.filter(function(x){return P(x.id)});
  $('cnt').textContent=C.reduce(function(s,x){return s+1},0);
  $('cartBody').innerHTML=C.length?C.map(function(x,i){var p=P(x.id);return '<div class="ci" data-i="'+i+'"><div class="t"><div class="th">'+img(p)+'</div><div class="nm">'+esc(p.name)+'<div class="lt">'+unitPrice(p)+'</div></div><button class="x" data-a="del">حذف</button></div><div class="qrow"><button data-a="m">−</button><input class="fld" type="number" value="'+x.q+'"><button data-a="p">+</button></div><div class="lt">المجموع: <b>'+fmt(line(p,x.q))+'</b></div><input class="fld" data-acc placeholder="الحساب / الرابط / الإيميل" value="'+esc(x.acc)+'" style="margin-top:8px"></div>'}).join(''):'<p class="sub" style="text-align:center;margin-top:40px">السلة فارغة. أضف منتجات من القائمة.</p>';
- $('cartFoot').style.display=C.length?'':'none';cTot()}
-function cTot(){$('ctot').textContent=fmt(C.reduce(function(s,x){return s+line(P(x.id),x.q)},0))}
+ $('cartFoot').style.display=$('cartForm').style.display=C.length?'':'none';cTot()}
+function sub(){return C.reduce(function(s,x){return s+line(P(x.id),x.q)},0)}
+function dis(){var s=sub();if(!D)return 0;return D.type==='f'?Math.min(s,conv(D.v)):Math.min(s,s*D.v/100)}
+function cTot(){var s=sub(),d=dis();$('cdis').textContent=d>0?'خصم ('+D.code+'): −'+fmt(d):'';$('ctot').textContent=fmt(s-d)}
 $('cartBody').onclick=function(e){var a=e.target.dataset.a,r=e.target.closest('.ci');if(!a||!r)return;var x=C[r.dataset.i],p=P(x.id);
  if(a==='del')C.splice(r.dataset.i,1);if(a==='m')x.q=clamp(p,x.q-stp(p));if(a==='p')x.q=clamp(p,x.q+stp(p));renderCart()};
 $('cartBody').onchange=function(e){var r=e.target.closest('.ci');if(!r||e.target.dataset.acc!==undefined)return;var x=C[r.dataset.i];x.q=clamp(P(x.id),e.target.value);renderCart()};
@@ -190,14 +201,27 @@ $('cartBody').oninput=function(e){if(e.target.dataset.acc!==undefined)C[e.target
 $('openCart').onclick=function(){$('drawer').classList.add('open')};
 $('closeCart').onclick=function(){$('drawer').classList.remove('open')};
 $('drawer').onclick=function(e){if(e.target===this)this.classList.remove('open')};
+$('capp').onclick=function(){var v=$('cd').value.trim().toUpperCase(),m=$('cmsg');
+ if(!v){D=null;m.textContent='';cTot();return}
+ var c=S.codes.filter(function(x){return x.on!==false&&String(x.code).toUpperCase()===v})[0];
+ if(!c){D=null;m.style.color='var(--rd2)';m.textContent='كود الخصم غير صحيح أو غير مفعّل';cTot();return}
+ D=c;m.style.color='#4ade80';m.textContent='تم تطبيق الكود '+c.code+' ✓';cTot()};
 $('go').onclick=function(){var er=$('err');er.textContent='';if(!C.length)return;
+ var nm=$('cn').value.trim(),em=$('ce').value.trim(),dg=$('cp').value.replace(/\D/g,'').replace(/^0+/,'');
+ if(nm.length<2){er.textContent='أدخل اسمك';return}
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){er.textContent='أدخل بريداً إلكترونياً صحيحاً';return}
+ if(dg.length<6||dg.length>12){er.textContent='أدخل رقم هاتف صحيحاً (بدون كود الدولة)';return}
  for(var i=0;i<C.length;i++){var x=C[i],p=P(x.id);
   if(x.q<p.min||x.q>p.max){er.textContent=p.name+': الكمية بين '+N(p.min)+' و'+N(p.max);return}
   if(!x.acc.trim()){er.textContent='أدخل الحساب أو الرابط لـ: '+p.name;return}}
- var tot=0,m='مرحباً ARC STORE 👋\nأرغب بإتمام الطلب التالي:\n';
- C.forEach(function(x,i){var p=P(x.id),l=line(p,x.q);tot+=l;m+='\n'+(i+1)+') '+p.name+'\n   🔢 الكمية: '+N(x.q)+' '+p.unit+'\n   💰 السعر: '+fmt(l)+'\n   🔗 الحساب: '+x.acc.trim()+'\n'});
- m+='\n💵 الإجمالي: '+fmt(tot)+' ('+curC+')';
+ var ph=$('cc').value+dg,s=sub(),d=dis(),no='ARC-'+Date.now().toString(36).toUpperCase().slice(-5)+Math.floor(Math.random()*90+10);
+ var o={no:no,t:Date.now(),nm:nm,em:em,ph:ph,cur:curC,it:C.map(function(x){var p=P(x.id);return{n:p.name,q:x.q,u:p.unit,a:x.acc.trim(),e:p.eta||'',l:+line(p,x.q).toFixed(2)}}),cd:D?D.code:'',sb:+s.toFixed(2),ds:+d.toFixed(2),tt:+(s-d).toFixed(2)};
+ var m='مرحباً ARC STORE 👋\nأرغب بإتمام الطلب رقم: '+no+'\n\n👤 الاسم: '+nm+'\n📧 البريد: '+em+'\n📱 الهاتف: +'+ph+'\n';
+ C.forEach(function(x,k){var p=P(x.id);m+='\n'+(k+1)+') '+p.name+'\n   🔢 الكمية: '+N(x.q)+' '+p.unit+'\n   💰 السعر: '+fmt(line(p,x.q))+'\n   🔗 الحساب: '+x.acc.trim()+(p.eta?'\n   ⏱ مدة التنفيذ: '+p.eta:'')+'\n'});
+ if(D)m+='\n🏷️ كود الخصم: '+D.code+' (−'+fmt(d)+')';
+ m+='\n💵 الإجمالي: '+fmt(s-d)+' ('+curC+')';
  if($('cnote').value.trim())m+='\n📝 ملاحظات: '+$('cnote').value.trim();
+ m+='\n\n🔖 كود الطلب (للإدارة): ARCX:'+btoa(unescape(encodeURIComponent(JSON.stringify(o))));
  window.open('https://wa.me/'+S.wa.replace(/\D/g,'')+'?text='+encodeURIComponent(m),'_blank')};
 
 /* reveal + counters */
