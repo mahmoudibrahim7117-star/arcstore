@@ -1,502 +1,235 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARC STORE | متجر الخدمات الرقمية</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Tajawal -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { tajawal: ['Tajawal', 'sans-serif'] },
-                    colors: {
-                        arcRed: '#FF0033',
-                        arcDark: '#050507',
-                        arcCard: '#0D0D12'
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: #050507;
-            color: #FFFFFF;
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(255, 0, 51, 0.2), transparent 45%),
-                linear-gradient(to right, rgba(255, 0, 51, 0.04) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 0, 51, 0.04) 1px, transparent 1px);
-            background-size: 100% 100%, 30px 30px, 30px 30px;
-        }
-        .neon-border-subtle {
-            border: 1px solid rgba(255, 0, 51, 0.25);
-        }
-        .neon-border-subtle:hover {
-            border-color: #FF0033;
-            box-shadow: 0 0 25px rgba(255, 0, 51, 0.5);
-        }
-        .neon-text {
-            text-shadow: 0 0 15px rgba(255, 0, 51, 0.9);
-        }
-        .neon-btn {
-            background: linear-gradient(135deg, #FF0033 0%, #B30024 100%);
-            box-shadow: 0 0 15px rgba(255, 0, 51, 0.5);
-        }
-        .neon-btn:hover {
-            box-shadow: 0 0 25px rgba(255, 0, 51, 0.85);
-        }
-        .counter-glow {
-            animation: pulseGlow 2s infinite alternate;
-        }
-        @keyframes pulseGlow {
-            0% { text-shadow: 0 0 10px rgba(255, 0, 51, 0.5); }
-            100% { text-shadow: 0 0 25px rgba(255, 0, 51, 1); }
-        }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #050507; }
-        ::-webkit-scrollbar-thumb { background: #FF0033; border-radius: 4px; }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ARC STORE | متجر الخدمات الرقمية</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style id="css">
+:root{--bg:#050506;--pn:#0e0e10;--rd:#ff1a2e;--rd2:#ff4d5e;--mt:#9a9aa3;--ln:rgba(255,26,46,.28);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:#fff;font-family:'Cairo',Tahoma,Arial,sans-serif;line-height:1.7;overflow-x:hidden;background-image:linear-gradient(rgba(255,26,46,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,26,46,.07) 1px,transparent 1px);background-size:44px 44px}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0,rgba(255,26,46,.18),transparent 60%),radial-gradient(ellipse at center,transparent 40%,#000 100%);pointer-events:none;z-index:0}
+main,header,footer{position:relative;z-index:1}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 18px}
+header{position:sticky;top:0;z-index:20;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--ln)}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:10px;height:68px}
+.logo{direction:ltr;font-weight:900;font-size:1.7rem;letter-spacing:.12em;display:flex;gap:.45em;align-items:baseline}
+.logo b{color:#fff;text-shadow:0 0 6px #fff,0 0 18px var(--rd)}
+.logo i{font-style:normal;color:var(--rd);text-shadow:0 0 8px var(--rd),0 0 24px var(--rd),0 0 46px var(--rd);animation:fl 5s infinite}
+@keyframes fl{0%,18%,22%,62%,64%,100%{opacity:1}20%,63%{opacity:.45}}
+.cur{display:flex;gap:3px;background:var(--pn);border:1px solid var(--ln);border-radius:99px;padding:3px}
+.cur button{border:0;background:none;padding:3px 11px;border-radius:99px;cursor:pointer;font-weight:600;font-size:.82rem;color:var(--mt)}
+.cur button.on{background:var(--rd);color:#fff;box-shadow:0 0 14px var(--rd)}
+.cartbtn{position:relative;border:1px solid var(--rd);background:rgba(255,26,46,.12);border-radius:10px;padding:6px 14px;cursor:pointer;font-weight:700;box-shadow:0 0 12px rgba(255,26,46,.5)}
+.cartbtn span{background:var(--rd);border-radius:99px;padding:0 8px;margin-inline-start:6px;font-size:.85rem}
+@media(max-width:640px){.logo{font-size:1.2rem}.cartbtn{padding:6px 10px}}
+.hero{padding:70px 0 30px;text-align:center}
+.hero h1{font-size:clamp(2.2rem,7vw,4.6rem);line-height:1.15;margin:0 0 14px;font-weight:900;text-shadow:0 0 30px rgba(255,26,46,.45)}
+.hero h1 span{color:var(--rd);text-shadow:0 0 12px var(--rd),0 0 40px var(--rd)}
+.hero p{color:var(--mt);max-width:560px;margin:0 auto 26px;font-size:1.1rem}
+.btn{display:inline-block;border:1.5px solid var(--rd);background:var(--rd);color:#fff;padding:11px 28px;border-radius:10px;font-weight:800;cursor:pointer;box-shadow:0 0 18px rgba(255,26,46,.65);transition:.25s}
+.btn:hover{box-shadow:0 0 32px var(--rd);transform:translateY(-2px)}
+.btn.ghost{background:transparent;box-shadow:none;color:var(--rd2)}
+.btn.ghost:hover{background:rgba(255,26,46,.12)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:40px}
+.st{background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:18px 10px}
+.st strong{display:block;font-size:2.1rem;font-weight:900;color:var(--rd2);text-shadow:0 0 14px var(--rd);direction:ltr}
+.st span{color:var(--mt);font-size:.9rem}
+section{padding:50px 0}
+h2{font-size:1.9rem;margin:0 0 6px;font-weight:900;text-shadow:0 0 16px rgba(255,26,46,.5)}
+.sub{color:var(--mt);margin:0 0 24px}
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
+.tab{border:1px solid var(--ln);background:var(--pn);padding:8px 20px;border-radius:99px;cursor:pointer;font-weight:700;transition:.25s}
+.tab.on,.tab:hover{border-color:var(--rd);box-shadow:0 0 14px rgba(255,26,46,.6)}
+.tab.on{background:rgba(255,26,46,.18)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.card{background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:14px;transition:.3s;display:flex;flex-direction:column;gap:6px}
+.card:hover{border-color:var(--rd);box-shadow:0 0 22px rgba(255,26,46,.45)}
+.pimg{aspect-ratio:16/10;border-radius:10px;overflow:hidden;background:#000;border:1px solid #1d1d22;display:flex;align-items:center;justify-content:center}
+.pimg img{width:100%;height:100%;object-fit:cover}
+.ph{direction:ltr;font-weight:900;font-size:2rem;letter-spacing:.15em;color:var(--rd);text-shadow:0 0 14px var(--rd)}
+.card h3{margin:4px 0 0;font-size:1.1rem}
+.pr{font-size:1.35rem;font-weight:900;color:var(--rd2);text-shadow:0 0 12px var(--rd);direction:ltr;text-align:right}
+.card small{color:var(--mt)}
+.qrow{display:flex;gap:6px}
+.qrow button{width:40px;border:1px solid var(--ln);background:#000;border-radius:8px;font-size:1.2rem;cursor:pointer}
+.qrow button:hover{border-color:var(--rd);box-shadow:0 0 10px var(--rd)}
+.fld{width:100%;background:#000;border:1px solid var(--ln);border-radius:10px;padding:8px 12px;outline:0}
+.fld:focus{border-color:var(--rd);box-shadow:0 0 12px rgba(255,26,46,.5)}
+select.fld option{background:#000}
+.qrow .fld{text-align:center;direction:ltr;font-weight:800}
+.lt{font-size:.9rem;color:var(--mt)}.lt b{color:#fff;direction:ltr;display:inline-block}
+.pick{width:100%;text-align:center}
+.rev{background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:20px}
+.rev .stars{color:var(--rd2);letter-spacing:3px;text-shadow:0 0 8px var(--rd)}
+.rev p{margin:8px 0 12px;color:#ddd}.rev b{font-size:.9rem;color:var(--mt)}
+footer{border-top:1px solid var(--ln);padding:28px 0;text-align:center;color:var(--mt);font-size:.9rem}
+footer a{color:var(--rd2);cursor:pointer}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+.rv.show{opacity:1;transform:none}
+/* cart drawer */
+.drawer{position:fixed;inset:0;z-index:40;display:none;background:rgba(0,0,0,.65)}
+.drawer.open{display:block}
+.dp{position:absolute;top:0;bottom:0;left:0;width:min(440px,100%);background:#070708;border-right:1px solid var(--rd);box-shadow:0 0 40px rgba(255,26,46,.4);display:flex;flex-direction:column;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--ln)}
+.dh h3{margin:0;font-size:1.2rem}
+.sc{flex:1;overflow-y:auto;padding:12px 16px}.cf{display:grid;gap:8px;margin-top:8px}.cf h4{margin:6px 0 0;font-size:1rem}.ph2{display:grid;grid-template-columns:130px 1fr;gap:6px}.cc{display:grid;grid-template-columns:1fr auto;gap:6px}.desc{color:var(--mt);font-size:.85rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.eta{font-size:.82rem;color:var(--rd2)}.dis{color:#4ade80;font-size:.9rem;text-align:left;direction:ltr;min-height:1.2em}
+.ci{border:1px solid var(--ln);border-radius:12px;padding:10px;margin-bottom:10px;background:var(--pn)}
+.ci .t{display:flex;gap:10px;align-items:center}
+.ci .th{width:54px;height:54px;border-radius:8px;overflow:hidden;background:#000;flex:none;display:flex;align-items:center;justify-content:center}
+.ci .th img{width:100%;height:100%;object-fit:cover}
+.ci .nm{flex:1;font-weight:700}
+.ci .qrow{margin:8px 0}
+.df{padding:14px 16px;border-top:1px solid var(--ln)}
+.tot{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:700}
+.tot strong{font-size:1.6rem;color:var(--rd2);text-shadow:0 0 12px var(--rd);direction:ltr}
+.wa{background:#25d366;border-color:#25d366;box-shadow:0 0 16px rgba(37,211,102,.5);color:#04210f;width:100%;text-align:center}
+.wa:hover{box-shadow:0 0 30px #25d366}
+.err{color:var(--rd2);font-size:.88rem;min-height:1.4em;margin-top:6px;text-align:center}
+.x{background:none;border:1px solid var(--ln);color:var(--rd2);border-radius:8px;cursor:pointer;padding:5px 12px}
+.x:hover{background:var(--rd);color:#fff}
+/* admin */
+.tt{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--rd);padding:10px 22px;border-radius:10px;z-index:99;box-shadow:0 0 24px var(--rd);display:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
 </head>
-<body class="min-h-screen flex flex-col justify-between relative overflow-x-hidden">
+<body>
+<header><div class="wrap hd">
+ <a class="logo" href="#top"><b>ARC</b><i>STORE</i></a>
+ <div class="cur" id="cur"></div>
+ <button class="cartbtn" id="openCart">🛒 السلة<span id="cnt">0</span></button>
+</div></header>
+<main id="top">
+<div class="wrap"><div class="hero">
+ <h1>خدماتك الرقمية<br>بتوهّج <span>ARC STORE</span></h1>
+ <p>متابعون، مشاهدات واشتراكات بأسعار واضحة. أضف ما تريد إلى السلة وأتمم طلبك عبر واتساب.</p>
+ <a class="btn" href="#products">تصفّح المنتجات</a>
+ <div class="stats">
+  <div class="st"><strong data-n="12480" data-s="+">0</strong><span>طلب مكتمل</span></div>
+  <div class="st"><strong data-n="8350" data-s="+">0</strong><span>عضو في المتجر</span></div>
+  <div class="st"><strong data-n="99" data-s="%">0</strong><span>نسبة الرضا</span></div>
+  <div class="st"><strong data-n="24" data-s="/7">0</strong><span>دعم متواصل</span></div>
+ </div>
+</div></div>
+<section id="products"><div class="wrap">
+ <h2 class="rv">المنتجات</h2><p class="sub rv">اختر القسم، حدّد الكمية، ثم أضف إلى السلة.</p>
+ <div class="tabs" id="tabs"></div><div class="grid" id="pgrid"></div>
+</div></section>
+<section id="reviews"><div class="wrap">
+ <h2 class="rv">آراء العملاء</h2><p class="sub rv">تجارب من عملاء المتجر.</p>
+ <div class="grid">
+  <div class="rev rv"><div class="stars">★★★★★</div><p>وصل الطلب أسرع مما توقعت والتعامل على واتساب كان ممتاز.</p><b>— عبدالله، الرياض</b></div>
+  <div class="rev rv"><div class="stars">★★★★★</div><p>أسعار منافسة وخيار الدرهم سهّل عليّ الدفع. أكيد راح أكرر الطلب.</p><b>— خالد، دبي</b></div>
+  <div class="rev rv"><div class="stars">★★★★★</div><p>الاشتراك اشتغل بعد دقائق، وفريق الدعم رد علي فوراً.</p><b>— سارة، الشارقة</b></div>
+  <div class="rev rv"><div class="stars">★★★★☆</div><p>خدمة محترمة وواضحة، والسلة وفّرت علي وقت كثير.</p><b>— محمد، جدة</b></div>
+ </div>
+</div></section>
+</main>
+<footer><div class="wrap">© ARC STORE — جميع الحقوق محفوظة</div></footer>
 
-    <!-- الهيدر الرئيسي -->
-    <header class="sticky top-0 z-40 bg-black/90 backdrop-blur-md border-b border-arcRed/30 shadow-[0_4px_25px_rgba(255,0,51,0.25)]">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-            
-            <!-- الشعار على اليمين -->
-            <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-                <div class="relative w-12 h-12 bg-black rounded-xl border border-arcRed/60 flex items-center justify-center p-1 overflow-hidden shadow-[0_0_15px_#FF0033]">
-                    <svg viewBox="0 0 200 200" class="w-full h-full object-contain">
-                        <path d="M 30,140 L 80,40 L 115,40 L 75,140 Z" fill="#FF0033" />
-                        <path d="M 85,40 L 125,140 L 145,140 L 115,40 Z" fill="#FFFFFF" />
-                        <path d="M 120,40 L 170,140 L 145,140 L 105,40 Z" fill="#FF0033" />
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="text-xl font-black text-white tracking-wider flex items-center gap-1">
-                        ARC <span class="text-arcRed neon-text">STORE</span>
-                    </h1>
-                    <p class="text-[10px] text-gray-400">متجر الخدمات الرقمية المعتمد</p>
-                </div>
-            </div>
+<div class="drawer" id="drawer"><div class="dp">
+ <div class="dh"><h3>🛒 سلة التسوق</h3><button class="x" id="closeCart">إغلاق</button></div>
+ <div class="sc"><div id="cartBody"></div>
+ <div class="cf" id="cartForm">
+  <h4>بيانات العميل</h4>
+  <input class="fld" id="cn" placeholder="الاسم الكامل" autocomplete="name">
+  <input class="fld" id="ce" type="email" dir="ltr" placeholder="البريد الإلكتروني" autocomplete="email">
+  <div class="ph2"><select class="fld" id="cc" dir="ltr"><option value="971">🇦🇪 +971</option><option value="966">🇸🇦 +966</option><option value="965">🇰🇼 +965</option><option value="974">🇶🇦 +974</option><option value="973">🇧🇭 +973</option><option value="968">🇴🇲 +968</option><option value="20">🇪🇬 +20</option><option value="962">🇯🇴 +962</option><option value="964">🇮🇶 +964</option><option value="961">🇱🇧 +961</option><option value="967">🇾🇪 +967</option><option value="963">🇸🇾 +963</option><option value="970">🇵🇸 +970</option><option value="249">🇸🇩 +249</option><option value="218">🇱🇾 +218</option><option value="212">🇲🇦 +212</option><option value="213">🇩🇿 +213</option><option value="216">🇹🇳 +216</option><option value="90">🇹🇷 +90</option><option value="44">🇬🇧 +44</option><option value="1">🇺🇸 +1</option></select><input class="fld" id="cp" type="tel" inputmode="tel" dir="ltr" placeholder="رقم الهاتف" autocomplete="tel-national"></div>
+  <div class="cc"><input class="fld" id="cd" dir="ltr" placeholder="كود الخصم (إن وجد)"><button class="x" id="capp">تطبيق</button></div>
+  <div class="lt" id="cmsg"></div>
+  <input class="fld" id="cnote" placeholder="ملاحظات (اختياري)">
+ </div></div>
+ <div class="df" id="cartFoot">
+  <div class="dis" id="cdis"></div>
+  <div class="tot"><span>الإجمالي</span><strong id="ctot">0</strong></div>
+  <button class="btn wa" id="go">إتمام الطلب عبر واتساب</button><div class="err" id="err"></div>
+ </div>
+</div></div>
+<div class="tt" id="tt"></div>
 
-            <!-- أزرار التحكم وقسم دعم الحسابات -->
-            <div class="flex items-center gap-3">
-                <!-- زر دعم الحسابات (رابط حسابك المباشر) -->
-                <a href="https://wa.me/966500000000" target="_blank" class="flex items-center gap-1.5 px-3 py-2 bg-emerald-600/20 border border-emerald-500/50 hover:bg-emerald-600 text-emerald-400 hover:text-white rounded-xl text-xs font-bold transition">
-                    <i class="fa-brands fa-whatsapp text-sm"></i> دعم الحسابات
-                </a>
+<script src="data.js"></script>
+<script>
+var KEY='arcstore_draft3',CS={AED:'د.إ',SAR:'ر.س',USD:'$'};
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+var DEF={"wa":"966500000000","pass":"1234","rates":{"AED":1,"SAR":1.02,"USD":0.2723},"cats":[{"id":"c1","name":"المتابعين"},{"id":"c2","name":"المشاهدات"},{"id":"c3","name":"الاشتراكات"}],"prods":[{"id":"p1","cat":"c1","name":"متابعين انستغرام","price":15,"per":1000,"min":250,"max":100000,"unit":"متابع","img":"","desc":"متابعين لحساب انستغرام. يبدأ التنفيذ بعد تأكيد الطلب.","eta":"من 1 إلى 24 ساعة"},{"id":"p2","cat":"c1","name":"متابعين تيك توك","price":18,"per":1000,"min":250,"max":100000,"unit":"متابع","img":"","desc":"متابعين لحساب تيك توك. يبدأ التنفيذ بعد تأكيد الطلب.","eta":"من 1 إلى 24 ساعة"},{"id":"p3","cat":"c2","name":"مشاهدات تيك توك","price":2.2,"per":1000,"min":250,"max":1000000,"unit":"مشاهدة","img":"","desc":"مشاهدات لفيديوهات تيك توك. أرسل رابط الفيديو عند الطلب.","eta":"خلال 6 ساعات"},{"id":"p4","cat":"c2","name":"مشاهدات انستغرام ريلز","price":2,"per":1000,"min":250,"max":1000000,"unit":"مشاهدة","img":"","desc":"مشاهدات لريلز انستغرام. أرسل رابط الريلز عند الطلب.","eta":"خلال 6 ساعات"},{"id":"p5","cat":"c3","name":"اشتراك نتفليكس شهر","price":15,"per":1,"min":1,"max":12,"unit":"اشتراك","img":"","desc":"اشتراك نتفليكس لمدة شهر. أرسل بريدك عند الطلب.","eta":"خلال ساعة"},{"id":"p6","cat":"c3","name":"اشتراك سبوتيفاي شهر","price":11,"per":1,"min":1,"max":12,"unit":"اشتراك","img":"","desc":"اشتراك سبوتيفاي لمدة شهر. أرسل بريدك عند الطلب.","eta":"خلال ساعة"}],"codes":[]};
+var S=JSON.parse(JSON.stringify(window.ARC_DATA||DEF));S.codes=S.codes||[];
+var curC='AED',curCat=null,Q={},C=[],D=null;
+function toast(m){var t=$('tt');t.textContent=m;t.style.display='block';clearTimeout(t._h);t._h=setTimeout(function(){t.style.display='none'},2800)}
+function P(id){return S.prods.filter(function(p){return p.id===id})[0]}
+function conv(a){return a*S.rates[curC]}
+function fmt(v){var t=v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});return curC==='USD'?'$'+t:t+' '+CS[curC]}
+function N(n){return Number(n).toLocaleString('en-US')}
+function stp(p){return p.per>1?p.min:1}
+function clamp(p,q){q=parseInt(q)||p.min;return Math.min(p.max,Math.max(p.min,q))}
+function line(p,q){return conv(p.price*q/p.per)}
+function img(p){return p.img?'<img src="'+p.img+'" alt="">':'<div class="ph">ARC</div>'}
+function unitPrice(p){return p.per>1?fmt(conv(p.price))+' / '+N(p.per):fmt(conv(p.price))+' / '+p.unit}
 
-                <!-- محول العملة (AED هي الأساسية) -->
-                <select id="currencySelector" onchange="changeCurrency(this.value)" class="bg-black text-xs text-white border border-arcRed/40 rounded-lg px-2.5 py-2 outline-none focus:border-arcRed">
-                    <option value="AED" selected>AED (د.إ) - الرئيسية</option>
-                    <option value="SAR">SAR (ر.س)</option>
-                    <option value="USD">USD ($)</option>
-                </select>
+function renderCur(){$('cur').innerHTML=['AED','SAR','USD'].map(function(c){return '<button class="'+(c===curC?'on':'')+'" data-c="'+c+'">'+c+'</button>'}).join('')}
+$('cur').onclick=function(e){var c=e.target.dataset.c;if(c){curC=c;renderCur();renderProds();renderCart()}};
+function renderTabs(){if(!S.cats.some(function(c){return c.id===curCat}))curCat=S.cats[0]?S.cats[0].id:null;
+ $('tabs').innerHTML=S.cats.map(function(c){return '<button class="tab '+(c.id===curCat?'on':'')+'" data-id="'+c.id+'">'+esc(c.name)+'</button>'}).join('')}
+$('tabs').onclick=function(e){var id=e.target.dataset.id;if(id){curCat=id;renderTabs();renderProds()}};
+function renderProds(){var l=S.prods.filter(function(p){return p.cat===curCat});
+ $('pgrid').innerHTML=l.length?l.map(function(p){var q=Q[p.id]=clamp(p,Q[p.id]);
+  return '<div class="card" data-id="'+p.id+'"><div class="pimg">'+img(p)+'</div><h3>'+esc(p.name)+'</h3>'+(p.desc?'<div class="desc">'+esc(p.desc)+'</div>':'')+(p.eta?'<div class="eta">⏱ مدة التنفيذ: '+esc(p.eta)+'</div>':'')+'<div class="pr">'+unitPrice(p)+'</div><small>الكمية: من '+N(p.min)+' إلى '+N(p.max)+'</small><div class="qrow"><button data-a="m">−</button><input class="fld" type="number" inputmode="numeric" value="'+q+'"><button data-a="p">+</button></div><div class="lt">الإجمالي: <b>'+fmt(line(p,q))+'</b></div><button class="btn pick" data-a="add">أضف إلى السلة</button></div>'}).join(''):'<p class="sub">لا توجد منتجات في هذا القسم حالياً.</p>'}
+function cardUpd(c){var p=P(c.dataset.id),i=c.querySelector('input');c.querySelector('.lt b').textContent=fmt(line(p,clamp(p,i.value)))}
+$('pgrid').onclick=function(e){var a=e.target.dataset.a,c=e.target.closest('.card');if(!a||!c)return;var p=P(c.dataset.id),i=c.querySelector('input'),q=clamp(p,i.value);
+ if(a==='m')q=clamp(p,q-stp(p));if(a==='p')q=clamp(p,q+stp(p));
+ i.value=q;Q[p.id]=q;cardUpd(c);
+ if(a==='add'){var ex=C.filter(function(x){return x.id===p.id})[0];if(ex)ex.q=clamp(p,ex.q+q);else C.push({id:p.id,q:q,acc:''});renderCart();toast('تمت الإضافة إلى السلة ✓')}};
+$('pgrid').oninput=function(e){var c=e.target.closest('.card');if(c&&e.target.tagName==='INPUT'){var p=P(c.dataset.id);Q[p.id]=parseInt(e.target.value)||p.min;cardUpd(c)}};
+$('pgrid').onchange=function(e){var c=e.target.closest('.card');if(c&&e.target.tagName==='INPUT'){var p=P(c.dataset.id);e.target.value=Q[p.id]=clamp(p,e.target.value);cardUpd(c)}};
 
-                <!-- زر سلة التسوق -->
-                <button onclick="toggleCartDrawer()" class="relative p-2.5 bg-black border border-arcRed/40 rounded-xl hover:border-arcRed transition">
-                    <i class="fa-solid fa-cart-shopping text-arcRed"></i>
-                    <span id="cartBadge" class="absolute -top-1.5 -right-1.5 bg-arcRed text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-[0_0_10px_#FF0033]">0</span>
-                </button>
-            </div>
-        </div>
-    </header>
+/* cart */
+function renderCart(){C=C.filter(function(x){return P(x.id)});
+ $('cnt').textContent=C.reduce(function(s,x){return s+1},0);
+ $('cartBody').innerHTML=C.length?C.map(function(x,i){var p=P(x.id);return '<div class="ci" data-i="'+i+'"><div class="t"><div class="th">'+img(p)+'</div><div class="nm">'+esc(p.name)+'<div class="lt">'+unitPrice(p)+'</div></div><button class="x" data-a="del">حذف</button></div><div class="qrow"><button data-a="m">−</button><input class="fld" type="number" value="'+x.q+'"><button data-a="p">+</button></div><div class="lt">المجموع: <b>'+fmt(line(p,x.q))+'</b></div><input class="fld" data-acc placeholder="الحساب / الرابط / الإيميل" value="'+esc(x.acc)+'" style="margin-top:8px"></div>'}).join(''):'<p class="sub" style="text-align:center;margin-top:40px">السلة فارغة. أضف منتجات من القائمة.</p>';
+ $('cartFoot').style.display=$('cartForm').style.display=C.length?'':'none';cTot()}
+function sub(){return C.reduce(function(s,x){return s+line(P(x.id),x.q)},0)}
+function dis(){var s=sub();if(!D)return 0;return D.type==='f'?Math.min(s,conv(D.v)):Math.min(s,s*D.v/100)}
+function cTot(){var s=sub(),d=dis();$('cdis').textContent=d>0?'خصم ('+D.code+'): −'+fmt(d):'';$('ctot').textContent=fmt(s-d)}
+$('cartBody').onclick=function(e){var a=e.target.dataset.a,r=e.target.closest('.ci');if(!a||!r)return;var x=C[r.dataset.i],p=P(x.id);
+ if(a==='del')C.splice(r.dataset.i,1);if(a==='m')x.q=clamp(p,x.q-stp(p));if(a==='p')x.q=clamp(p,x.q+stp(p));renderCart()};
+$('cartBody').onchange=function(e){var r=e.target.closest('.ci');if(!r||e.target.dataset.acc!==undefined)return;var x=C[r.dataset.i];x.q=clamp(P(x.id),e.target.value);renderCart()};
+$('cartBody').oninput=function(e){if(e.target.dataset.acc!==undefined)C[e.target.closest('.ci').dataset.i].acc=e.target.value};
+$('openCart').onclick=function(){$('drawer').classList.add('open')};
+$('closeCart').onclick=function(){$('drawer').classList.remove('open')};
+$('drawer').onclick=function(e){if(e.target===this)this.classList.remove('open')};
+$('capp').onclick=function(){var v=$('cd').value.trim().toUpperCase(),m=$('cmsg');
+ if(!v){D=null;m.textContent='';cTot();return}
+ var c=S.codes.filter(function(x){return x.on!==false&&String(x.code).toUpperCase()===v})[0];
+ if(!c){D=null;m.style.color='var(--rd2)';m.textContent='كود الخصم غير صحيح أو غير مفعّل';cTot();return}
+ D=c;m.style.color='#4ade80';m.textContent='تم تطبيق الكود '+c.code+' ✓';cTot()};
+$('go').onclick=function(){var er=$('err');er.textContent='';if(!C.length)return;
+ var nm=$('cn').value.trim(),em=$('ce').value.trim(),dg=$('cp').value.replace(/\D/g,'').replace(/^0+/,'');
+ if(nm.length<2){er.textContent='أدخل اسمك';return}
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){er.textContent='أدخل بريداً إلكترونياً صحيحاً';return}
+ if(dg.length<6||dg.length>12){er.textContent='أدخل رقم هاتف صحيحاً (بدون كود الدولة)';return}
+ for(var i=0;i<C.length;i++){var x=C[i],p=P(x.id);
+  if(x.q<p.min||x.q>p.max){er.textContent=p.name+': الكمية بين '+N(p.min)+' و'+N(p.max);return}
+  if(!x.acc.trim()){er.textContent='أدخل الحساب أو الرابط لـ: '+p.name;return}}
+ var ph=$('cc').value+dg,s=sub(),d=dis(),no='ARC-'+Date.now().toString(36).toUpperCase().slice(-5)+Math.floor(Math.random()*90+10);
+ var o={no:no,t:Date.now(),nm:nm,em:em,ph:ph,cur:curC,it:C.map(function(x){var p=P(x.id);return{n:p.name,q:x.q,u:p.unit,a:x.acc.trim(),e:p.eta||'',l:+line(p,x.q).toFixed(2)}}),cd:D?D.code:'',sb:+s.toFixed(2),ds:+d.toFixed(2),tt:+(s-d).toFixed(2)};
+ var m='مرحباً ARC STORE 👋\nأرغب بإتمام الطلب رقم: '+no+'\n\n👤 الاسم: '+nm+'\n📧 البريد: '+em+'\n📱 الهاتف: +'+ph+'\n';
+ C.forEach(function(x,k){var p=P(x.id);m+='\n'+(k+1)+') '+p.name+'\n   🔢 الكمية: '+N(x.q)+' '+p.unit+'\n   💰 السعر: '+fmt(line(p,x.q))+'\n   🔗 الحساب: '+x.acc.trim()+(p.eta?'\n   ⏱ مدة التنفيذ: '+p.eta:'')+'\n'});
+ if(D)m+='\n🏷️ كود الخصم: '+D.code+' (−'+fmt(d)+')';
+ m+='\n💵 الإجمالي: '+fmt(s-d)+' ('+curC+')';
+ if($('cnote').value.trim())m+='\n📝 ملاحظات: '+$('cnote').value.trim();
+ m+='\n\n🔖 كود الطلب (للإدارة): ARCX:'+btoa(unescape(encodeURIComponent(JSON.stringify(o))));
+ window.open('https://wa.me/'+S.wa.replace(/\D/g,'')+'?text='+encodeURIComponent(m),'_blank')};
 
-    <!-- المحتوى الرئيسي -->
-    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow space-y-12">
-        
-        <!-- قسم الهيرو والأرقام المتحركة في الأعلى -->
-        <section class="text-center space-y-6 pt-2">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-arcRed/10 border border-arcRed/40 text-arcRed text-xs font-bold shadow-[0_0_15px_rgba(255,0,51,0.2)]">
-                <i class="fa-solid fa-bolt text-xs"></i> تنفيذ فوري وتلقائي لجميع الطلبات
-            </div>
-            
-            <h2 class="text-3xl md:text-5xl font-black text-white tracking-wide">
-                عزز حضورك الرقمي مع <span class="text-arcRed neon-text">ARC STORE</span>
-            </h2>
-            <p class="text-xs md:text-sm text-gray-400 max-w-2xl mx-auto">
-                أسرع متجر لزيادة المتابعين، المشاهدات والاشتراكات الرقمية بأعلى جودة وضمان كامل.
-            </p>
+/* reveal + counters */
+var io=new IntersectionObserver(function(es){es.forEach(function(x){if(!x.isIntersecting)return;if(x.target.dataset.n)count(x.target);else x.target.classList.add('show');io.unobserve(x.target)})},{threshold:.2});
+function count(el){var n=+el.dataset.n,s=el.dataset.s||'',t0=performance.now();(function f(t){var k=Math.min((t-t0)/1800,1);el.textContent=Math.round(n*(1-Math.pow(1-k,3))).toLocaleString('en-US')+s;if(k<1)requestAnimationFrame(f)})(t0)}
+document.querySelectorAll('.rv,[data-n]').forEach(function(e){io.observe(e)});
 
-            <!-- الإحصائيات مع حركة تزايد الأرقام -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 max-w-4xl mx-auto">
-                <div class="bg-arcCard neon-border-subtle p-5 rounded-2xl text-center">
-                    <div class="text-3xl md:text-4xl font-black text-arcRed counter-glow mb-1" id="statOrders">0</div>
-                    <div class="text-xs text-gray-400 font-bold">طلبات مكتملة</div>
-                </div>
-                <div class="bg-arcCard neon-border-subtle p-5 rounded-2xl text-center">
-                    <div class="text-3xl md:text-4xl font-black text-white mb-1" id="statClients">0</div>
-                    <div class="text-xs text-gray-400 font-bold">عميل سعيد</div>
-                </div>
-                <div class="bg-arcCard neon-border-subtle p-5 rounded-2xl text-center">
-                    <div class="text-3xl md:text-4xl font-black text-arcRed counter-glow mb-1">4.9/5</div>
-                    <div class="text-xs text-gray-400 font-bold">تقييم المتجر</div>
-                </div>
-                <div class="bg-arcCard neon-border-subtle p-5 rounded-2xl text-center">
-                    <div class="text-3xl md:text-4xl font-black text-white mb-1">100%</div>
-                    <div class="text-xs text-gray-400 font-bold">تسليم ومتابعة</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- الأقسام -->
-        <section>
-            <div class="flex items-center justify-center gap-3 overflow-x-auto pb-2 scrollbar-none" id="categoryFilters">
-                <!-- ينشأ ديناميكياً -->
-            </div>
-        </section>
-
-        <!-- شبكة المنتجات -->
-        <section>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="productsGrid">
-                <!-- ينشأ ديناميكياً -->
-            </div>
-        </section>
-
-        <!-- قسم آراء وتقييمات العملاء أسفل الصفحة -->
-        <section class="border-t border-white/10 pt-10">
-            <div class="text-center mb-8">
-                <span class="text-arcRed font-bold text-xs uppercase tracking-widest block mb-1">CUSTOMER REVIEWS</span>
-                <h3 class="text-2xl font-black text-white flex items-center justify-center gap-2">
-                    آراء وتقييمات العملاء <span class="text-arcRed">★</span>
-                </h3>
-                <p class="text-xs text-gray-400 mt-1">تجارب حقيقية لعملائنا في ARC STORE</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="reviewsList">
-                <!-- التقييمات -->
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Drawer عربة التسوق -->
-    <div id="cartDrawer" class="fixed inset-0 z-50 flex justify-end bg-black/80 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none">
-        <div class="bg-arcCard w-full max-w-md h-full p-6 flex flex-col justify-between border-r border-arcRed/50 shadow-[0_0_30px_rgba(255,0,51,0.3)] overflow-y-auto">
-            <div>
-                <div class="flex justify-between items-center border-b border-white/10 pb-4 mb-4">
-                    <h3 class="text-lg font-bold flex items-center gap-2 text-white">
-                        <i class="fa-solid fa-cart-shopping text-arcRed"></i>
-                        عربة التسوق
-                    </h3>
-                    <button onclick="toggleCartDrawer()" class="text-gray-400 hover:text-white">
-                        <i class="fa-solid fa-xmark text-xl"></i>
-                    </button>
-                </div>
-
-                <div id="cartItems" class="space-y-4 mb-6">
-                    <!-- عناصر السلة -->
-                </div>
-            </div>
-
-            <div class="border-t border-white/10 pt-4 space-y-4">
-                <div class="flex gap-2">
-                    <input type="text" id="couponCode" placeholder="كود الخصم (جرب ARC2026)" class="bg-black border border-white/10 rounded-xl px-3 py-2 text-xs w-full text-white focus:border-arcRed outline-none">
-                    <button onclick="applyCoupon()" class="bg-white/10 hover:bg-arcRed text-white text-xs px-4 py-2 rounded-xl transition font-bold">تطبيق</button>
-                </div>
-                <div id="couponMessage" class="text-xs font-bold hidden"></div>
-
-                <div class="bg-black/60 p-4 rounded-xl space-y-2 text-xs border border-white/5">
-                    <div class="flex justify-between text-gray-400">
-                        <span>المجموع:</span>
-                        <span id="subtotalPrice">0</span>
-                    </div>
-                    <div class="flex justify-between text-emerald-400 hidden" id="discountRow">
-                        <span>الخصم:</span>
-                        <span id="discountPrice">0</span>
-                    </div>
-                    <div class="flex justify-between text-base font-black text-white pt-2 border-t border-white/10">
-                        <span>الإجمالي النهائي:</span>
-                        <span id="totalPrice" class="text-arcRed neon-text">0</span>
-                    </div>
-                </div>
-
-                <div class="space-y-2">
-                    <input type="text" id="custName" placeholder="الاسم الكامل *" class="bg-black border border-white/10 rounded-xl px-3 py-2 text-xs w-full text-white outline-none focus:border-arcRed">
-                    <input type="email" id="custEmail" placeholder="البريد الإلكتروني *" class="bg-black border border-white/10 rounded-xl px-3 py-2 text-xs w-full text-white outline-none focus:border-arcRed">
-                    <input type="tel" id="custPhone" placeholder="رقم الواتساب مع المفتاح *" class="bg-black border border-white/10 rounded-xl px-3 py-2 text-xs w-full text-white outline-none focus:border-arcRed">
-                    <input type="text" id="custAccount" placeholder="رابط الحساب / اليوزر المستهدف *" class="bg-black border border-white/10 rounded-xl px-3 py-2 text-xs w-full text-white outline-none focus:border-arcRed">
-                </div>
-
-                <button onclick="checkoutToWhatsApp()" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 font-bold rounded-xl text-white flex items-center justify-center gap-2 shadow-lg transition">
-                    <i class="fa-brands fa-whatsapp text-lg"></i>
-                    إرسال الطلب عبر الواتساب
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- الفوتر -->
-    <footer class="bg-black border-t border-white/10 py-6 text-center text-xs text-gray-500 space-y-2">
-        <div>
-            <a href="https://wa.me/966500000000" target="_blank" class="text-emerald-400 hover:underline font-bold inline-flex items-center gap-1">
-                <i class="fa-brands fa-whatsapp"></i> قسم دعم الحسابات المباشر
-            </a>
-        </div>
-        <p>جميع الحقوق محفوظة © 2026 لمتجر <span class="text-arcRed font-bold">ARC STORE</span></p>
-    </footer>
-
-    <!-- المنطق البرمجي -->
-    <script>
-        const DEFAULT_CATEGORIES = ['الكل', 'إنستغرام', 'تيك توك', 'اشتراكات رقمية'];
-        const DEFAULT_PRODUCTS = [
-            { id: 1, name: 'متابعين إنستغرام حقيقيين', category: 'إنستغرام', minQty: 250, maxQty: 50000, priceAED: 15, img: 'https://cdn-icons-png.flaticon.com/512/174/174855.png' },
-            { id: 2, name: 'مشاهدات تيك توك سريعة', category: 'تيك توك', minQty: 250, maxQty: 100000, priceAED: 10, img: 'https://cdn-icons-png.flaticon.com/512/3046/3046121.png' },
-            { id: 3, name: 'اشتراك نتفليكس شهر كامل', category: 'اشتراكات رقمية', minQty: 1, maxQty: 10, priceAED: 35, img: 'https://cdn-icons-png.flaticon.com/512/732/732228.png' }
-        ];
-        const DEFAULT_REVIEWS = [
-            { name: "عبدالله العتيبي", comment: "أفضل متجر تعاملت معه، سرعة في تنفيذ المتابعين فورية وبدون نقص!", stars: 5, date: "قبل 15 دقيقة" },
-            { name: "سارة الشمري", comment: "خدمة الاشتراكات ممتازة والتسليم فوري بالواتساب. شكراً لكم!", stars: 5, date: "قبل ساعتين" },
-            { name: "محمد الشحي", comment: "دعم فني ممتاز وثقة، اشتراك شغال 100%. ينصح بالتعامل معهم.", stars: 5, date: "قبل 5 ساعات" }
-        ];
-
-        let categories = JSON.parse(localStorage.getItem('arc_categories')) || DEFAULT_CATEGORIES;
-        let products = JSON.parse(localStorage.getItem('arc_products')) || DEFAULT_PRODUCTS;
-        let orders = JSON.parse(localStorage.getItem('arc_orders')) || [];
-        
-        let cart = [];
-        let currentCurrency = 'AED';
-        let discountPercent = 0;
-        let activeCategory = 'الكل';
-
-        const currencyRates = { AED: 1, SAR: 1.02, USD: 0.27 };
-        const currencySymbols = { AED: 'د.إ', SAR: 'ر.س', USD: '$' };
-
-        window.onload = function() {
-            renderCategories();
-            renderProducts();
-            animateCounters();
-            renderReviews();
-        };
-
-        function animateCounters() {
-            let targetOrders = 1850 + orders.length;
-            let targetClients = 1420;
-            let c1 = 0, c2 = 0;
-            
-            let timer = setInterval(() => {
-                if(c1 < targetOrders) c1 += 30; else c1 = targetOrders;
-                if(c2 < targetClients) c2 += 25; else c2 = targetClients;
-                
-                document.getElementById('statOrders').innerText = c1.toLocaleString() + "+";
-                document.getElementById('statClients').innerText = c2.toLocaleString() + "+";
-                
-                if(c1 === targetOrders && c2 === targetClients) clearInterval(timer);
-            }, 25);
-        }
-
-        function renderReviews() {
-            const list = document.getElementById('reviewsList');
-            list.innerHTML = DEFAULT_REVIEWS.map(r => `
-                <div class="bg-arcCard neon-border-subtle p-5 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-center mb-3">
-                            <h4 class="font-bold text-sm text-white">${r.name}</h4>
-                            <span class="text-amber-400 text-xs">${'★'.repeat(r.stars)}</span>
-                        </div>
-                        <p class="text-xs text-gray-300 leading-relaxed">${r.comment}</p>
-                    </div>
-                    <span class="text-[10px] text-gray-500 mt-4 block">${r.date}</span>
-                </div>
-            `).join('');
-        }
-
-        function changeCurrency(curr) {
-            currentCurrency = curr;
-            renderProducts();
-            updateCartUI();
-        }
-
-        function renderCategories() {
-            const container = document.getElementById('categoryFilters');
-            container.innerHTML = categories.map(cat => `
-                <button onclick="filterCategory('${cat}')" class="px-5 py-2.5 rounded-xl text-xs font-bold transition whitespace-nowrap ${activeCategory === cat ? 'neon-btn text-white shadow-lg' : 'bg-arcCard text-gray-400 hover:text-white border border-white/10'}">
-                    ${cat}
-                </button>
-            `).join('');
-        }
-
-        function filterCategory(cat) {
-            activeCategory = cat;
-            renderCategories();
-            renderProducts();
-        }
-
-        function renderProducts() {
-            const container = document.getElementById('productsGrid');
-            const filtered = activeCategory === 'الكل' ? products : products.filter(p => p.category === activeCategory);
-
-            container.innerHTML = filtered.map(p => {
-                const minQty = p.minQty || 1;
-                const maxQty = p.maxQty || 100000;
-                const convertedPrice = (p.priceAED * currencyRates[currentCurrency]).toFixed(2);
-                
-                return `
-                    <div class="bg-arcCard neon-border-subtle rounded-2xl p-5 transition duration-300 flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center justify-between mb-4">
-                                <img src="${p.img || 'https://cdn-icons-png.flaticon.com/512/174/174855.png'}" class="w-12 h-12 rounded-xl p-2 bg-black border border-white/10 object-contain">
-                                <span class="text-[10px] bg-arcRed/20 text-arcRed border border-arcRed/40 px-2.5 py-1 rounded-full font-bold">${p.category}</span>
-                            </div>
-                            <h3 class="font-bold text-base text-white mb-2">${p.name}</h3>
-                            <div class="text-[11px] text-gray-400 mb-4 space-y-1">
-                                <div>أقل كمية للطلب: <span class="text-white font-bold">${minQty}</span></div>
-                                <div>أعلى كمية للطلب: <span class="text-white font-bold">${maxQty}</span></div>
-                            </div>
-                        </div>
-
-                        <div class="space-y-4">
-                            <div class="flex items-center justify-between bg-black p-2.5 rounded-xl border border-white/10">
-                                <span class="text-xs text-gray-400">الكمية:</span>
-                                <input type="number" id="qty-${p.id}" value="${minQty}" min="${minQty}" max="${maxQty}" class="bg-black text-center text-xs font-bold text-white w-24 py-1 rounded-lg border border-white/20 outline-none focus:border-arcRed">
-                            </div>
-
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <span class="text-xs text-gray-400 block">السعر الأساسي:</span>
-                                    <span class="text-lg font-black text-arcRed neon-text">${convertedPrice} ${currencySymbols[currentCurrency]}</span>
-                                </div>
-                                <button onclick="addToCart(${p.id})" class="px-4 py-2.5 neon-btn text-white rounded-xl text-xs font-bold transition flex items-center gap-2">
-                                    <i class="fa-solid fa-plus"></i> للسلة
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function addToCart(productId) {
-            const prod = products.find(p => p.id === productId);
-            const qtyInput = document.getElementById(`qty-${productId}`);
-            const qty = parseInt(qtyInput.value);
-            const minQty = prod.minQty || 1;
-            const maxQty = prod.maxQty || 100000;
-
-            if(qty < minQty) return alert(`أقل كمية مسموحة لهذا المنتج هي ${minQty}`);
-            if(qty > maxQty) return alert(`أعلى كمية مسموحة لهذا المنتج هي ${maxQty}`);
-
-            const existingIndex = cart.findIndex(item => item.id === productId);
-            if(existingIndex > -1) {
-                cart[existingIndex].qty = qty;
-            } else {
-                cart.push({ ...prod, qty });
-            }
-
-            updateCartUI();
-            toggleCartDrawer(true);
-        }
-
-        function updateCartUI() {
-            document.getElementById('cartBadge').innerText = cart.length;
-            const cartItemsContainer = document.getElementById('cartItems');
-
-            if(cart.length === 0) {
-                cartItemsContainer.innerHTML = `<p class="text-center text-xs text-gray-500 py-8">سلة التسوق فارغة حالياً</p>`;
-            } else {
-                cartItemsContainer.innerHTML = cart.map((item, idx) => {
-                    const price = ((item.priceAED * (item.qty / (item.minQty >= 250 ? 1000 : 1))) * currencyRates[currentCurrency]).toFixed(2);
-                    return `
-                        <div class="bg-black p-3 rounded-xl border border-white/10 flex justify-between items-center">
-                            <div>
-                                <h4 class="font-bold text-xs text-white">${item.name}</h4>
-                                <span class="text-[10px] text-gray-400">الكمية: ${item.qty} | ${price} ${currencySymbols[currentCurrency]}</span>
-                            </div>
-                            <button onclick="removeFromCart(${idx})" class="text-red-500 hover:text-red-400 text-xs">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                    `;
-                }).join('');
-            }
-
-            let subtotal = cart.reduce((sum, item) => {
-                const base = (item.minQty >= 250) ? (item.priceAED * (item.qty / 1000)) : (item.priceAED * item.qty);
-                return sum + base;
-            }, 0);
-
-            let discount = subtotal * discountPercent;
-            let total = subtotal - discount;
-
-            document.getElementById('subtotalPrice').innerText = (subtotal * currencyRates[currentCurrency]).toFixed(2) + " " + currencySymbols[currentCurrency];
-            document.getElementById('totalPrice').innerText = (total * currencyRates[currentCurrency]).toFixed(2) + " " + currencySymbols[currentCurrency];
-
-            if(discountPercent > 0) {
-                document.getElementById('discountRow').classList.remove('hidden');
-                document.getElementById('discountPrice').innerText = "-" + (discount * currencyRates[currentCurrency]).toFixed(2) + " " + currencySymbols[currentCurrency];
-            } else {
-                document.getElementById('discountRow').classList.add('hidden');
-            }
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
-        function toggleCartDrawer(open) {
-            const drawer = document.getElementById('cartDrawer');
-            if(open || drawer.classList.contains('opacity-0')) {
-                drawer.classList.remove('opacity-0', 'pointer-events-none');
-            } else {
-                drawer.classList.add('opacity-0', 'pointer-events-none');
-            }
-        }
-
-        function applyCoupon() {
-            const code = document.getElementById('couponCode').value.trim().toUpperCase();
-            const msg = document.getElementById('couponMessage');
-            msg.classList.remove('hidden');
-
-            if(code === 'ARC2026') {
-                discountPercent = 0.1;
-                msg.innerText = "تم تطبيق خصم 10% بنجاح!";
-                msg.className = "text-xs font-bold text-emerald-400";
-            } else {
-                discountPercent = 0;
-                msg.innerText = "كود الخصم غير صحيح";
-                msg.className = "text-xs font-bold text-red-400";
-            }
-            updateCartUI();
-        }
-
-        function checkoutToWhatsApp() {
-            if(cart.length === 0) return alert('السلة فارغة!');
-
-            const name = document.getElementById('custName').value.trim();
-            const email = document.getElementById('custEmail').value.trim();
-            const phone = document.getElementById('custPhone').value.trim();
-            const account = document.getElementById('custAccount').value.trim();
-
-            if(!name || !email || !phone || !account) {
-                return alert('يرجى تعبئة كافة بيانات الطلب المطلوبة!');
-            }
-
-            let itemsText = cart.map(i => `- ${i.name} (الكمية: ${i.qty})`).join('\n');
-            let totalVal = document.getElementById('totalPrice').innerText;
-
-            let msg = `طلب جديد من ARC STORE 🛒\n\n` +
-                      `👤 الاسم: ${name}\n` +
-                      `📧 البريد: ${email}\n` +
-                      `📱 الواتساب: ${phone}\n` +
-                      `🔗 الحساب المستهدف: ${account}\n\n` +
-                      `المنتجات المطلوبة:\n${itemsText}\n\n` +
-                      `💰 الإجمالي النهائي: ${totalVal}`;
-
-            orders.unshift({ id: Date.now(), name, phone, email, account, items: cart, date: new Date().toLocaleString() });
-            localStorage.setItem('arc_orders', JSON.stringify(orders));
-
-            const whatsappNumber = "966500000000"; // اكتب رقم الواتساب الخاص بك هنا
-            window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-    </script>
+renderCur();renderTabs();renderProds();renderCart();
+</script>
 </body>
 </html>
