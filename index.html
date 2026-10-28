@@ -30,17 +30,13 @@
             background-color: #050507;
             color: #FFFFFF;
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(255, 0, 51, 0.15), transparent 40%),
-                linear-gradient(to right, rgba(255, 0, 51, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 0, 51, 0.03) 1px, transparent 1px);
+                radial-gradient(circle at 50% 0%, rgba(255, 0, 51, 0.2), transparent 45%),
+                linear-gradient(to right, rgba(255, 0, 51, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 0, 51, 0.04) 1px, transparent 1px);
             background-size: 100% 100%, 30px 30px, 30px 30px;
         }
-        .neon-border {
-            border: 1px solid #FF0033;
-            box-shadow: 0 0 20px rgba(255, 0, 51, 0.4);
-        }
         .neon-border-subtle {
-            border: 1px solid rgba(255, 0, 51, 0.3);
+            border: 1px solid rgba(255, 0, 51, 0.25);
         }
         .neon-border-subtle:hover {
             border-color: #FF0033;
@@ -54,14 +50,14 @@
             box-shadow: 0 0 15px rgba(255, 0, 51, 0.5);
         }
         .neon-btn:hover {
-            box-shadow: 0 0 25px rgba(255, 0, 51, 0.8);
+            box-shadow: 0 0 25px rgba(255, 0, 51, 0.85);
         }
-        @keyframes modalEntrance {
-            0% { opacity: 0; transform: scale(0.85) translateY(-20px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
+        .counter-glow {
+            animation: pulseGlow 2s infinite alternate;
         }
-        .animate-modal {
-            animation: modalEntrance 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 10px rgba(255, 0, 51, 0.5); }
+            100% { text-shadow: 0 0 25px rgba(255, 0, 51, 1); }
         }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #050507; }
@@ -70,96 +66,90 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between relative overflow-x-hidden">
 
-    <!-- Modal التقييمات التلقائي -->
-    <div id="reviewsModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden">
-        <div class="bg-arcCard neon-border rounded-2xl max-w-lg w-full p-6 relative animate-modal">
-            <button onclick="closeReviewsModal()" class="absolute top-4 left-4 text-gray-400 hover:text-white text-xl">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="text-center mb-6">
-                <div class="w-16 h-16 bg-arcRed/20 text-arcRed rounded-full flex items-center justify-center mx-auto mb-3 border border-arcRed text-2xl shadow-[0_0_20px_#FF0033]">
-                    <i class="fa-solid fa-star"></i>
-                </div>
-                <h3 class="text-2xl font-black text-white">آراء وتقييمات العملاء <span class="text-arcRed">★</span></h3>
-                <p class="text-xs text-gray-400 mt-1">رضا عملائنا هو هدفنا الأول دائماً في ARC STORE</p>
-            </div>
-            <div id="reviewsList" class="space-y-4 max-h-80 overflow-y-auto pr-2">
-                <!-- تقييمات -->
-            </div>
-            <button onclick="closeReviewsModal()" class="mt-6 w-full py-3 neon-btn text-white font-bold rounded-xl shadow-lg transition">
-                تصفح الخدمات الآن
-            </button>
-        </div>
-    </div>
-
-    <!-- الهيدر Navigation -->
-    <header class="sticky top-0 z-40 bg-black/90 backdrop-blur-md border-b border-arcRed/30 shadow-[0_4px_20px_rgba(255,0,51,0.2)]">
+    <!-- الهيدر الرئيسي -->
+    <header class="sticky top-0 z-40 bg-black/90 backdrop-blur-md border-b border-arcRed/30 shadow-[0_4px_25px_rgba(255,0,51,0.25)]">
         <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-12 h-12 bg-black border-2 border-arcRed rounded-xl flex items-center justify-center font-black text-2xl text-white tracking-widest shadow-[0_0_20px_#FF0033]">
-                    ARC
+            
+            <!-- الشعار على اليمين -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                <div class="relative w-12 h-12 bg-black rounded-xl border border-arcRed/60 flex items-center justify-center p-1 overflow-hidden shadow-[0_0_15px_#FF0033]">
+                    <svg viewBox="0 0 200 200" class="w-full h-full object-contain">
+                        <path d="M 30,140 L 80,40 L 115,40 L 75,140 Z" fill="#FF0033" />
+                        <path d="M 85,40 L 125,140 L 145,140 L 115,40 Z" fill="#FFFFFF" />
+                        <path d="M 120,40 L 170,140 L 145,140 L 105,40 Z" fill="#FF0033" />
+                    </svg>
                 </div>
                 <div>
                     <h1 class="text-xl font-black text-white tracking-wider flex items-center gap-1">
                         ARC <span class="text-arcRed neon-text">STORE</span>
                     </h1>
-                    <p class="text-[10px] text-gray-400">متجر الخدمات الرقمية الشامل</p>
+                    <p class="text-[10px] text-gray-400">متجر الخدمات الرقمية المعتمد</p>
                 </div>
             </div>
 
+            <!-- أزرار التحكم وقسم دعم الحسابات -->
             <div class="flex items-center gap-3">
-                <!-- محول العملات (الدرهم الإماراتي AED هو الأساسي) -->
+                <!-- زر دعم الحسابات (رابط حسابك المباشر) -->
+                <a href="https://wa.me/966500000000" target="_blank" class="flex items-center gap-1.5 px-3 py-2 bg-emerald-600/20 border border-emerald-500/50 hover:bg-emerald-600 text-emerald-400 hover:text-white rounded-xl text-xs font-bold transition">
+                    <i class="fa-brands fa-whatsapp text-sm"></i> دعم الحسابات
+                </a>
+
+                <!-- محول العملة (AED هي الأساسية) -->
                 <select id="currencySelector" onchange="changeCurrency(this.value)" class="bg-black text-xs text-white border border-arcRed/40 rounded-lg px-2.5 py-2 outline-none focus:border-arcRed">
                     <option value="AED" selected>AED (د.إ) - الرئيسية</option>
                     <option value="SAR">SAR (ر.س)</option>
                     <option value="USD">USD ($)</option>
                 </select>
 
-                <!-- زر آراء العملاء -->
-                <button onclick="openReviewsModal()" class="p-2 text-gray-300 hover:text-arcRed transition" title="تقييمات العملاء">
-                    <i class="fa-solid fa-star text-lg"></i>
-                </button>
-
-                <!-- زر السلة -->
+                <!-- زر سلة التسوق -->
                 <button onclick="toggleCartDrawer()" class="relative p-2.5 bg-black border border-arcRed/40 rounded-xl hover:border-arcRed transition">
                     <i class="fa-solid fa-cart-shopping text-arcRed"></i>
                     <span id="cartBadge" class="absolute -top-1.5 -right-1.5 bg-arcRed text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-[0_0_10px_#FF0033]">0</span>
                 </button>
-
-                <!-- رابط لوحة الأدمن المستقلة -->
-                <a href="admin.html" target="_blank" class="p-2.5 bg-black border border-arcRed/40 rounded-xl hover:bg-arcRed/20 text-gray-300 hover:text-white transition" title="لوحة تحكم الأدمن">
-                    <i class="fa-solid fa-user-shield text-arcRed"></i>
-                </a>
             </div>
         </div>
     </header>
 
     <!-- المحتوى الرئيسي -->
-    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow">
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow space-y-12">
         
-        <!-- قسم الإحصائيات -->
-        <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-            <div class="bg-arcCard neon-border-subtle p-4 rounded-2xl text-center">
-                <div class="text-2xl font-black text-arcRed neon-text mb-1" id="statOrders">0</div>
-                <div class="text-xs text-gray-400">طلبات مكتملة</div>
+        <!-- قسم الهيرو والأرقام المتحركة في الأعلى -->
+        <section class="text-center space-y-6 pt-2">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-arcRed/10 border border-arcRed/40 text-arcRed text-xs font-bold shadow-[0_0_15px_rgba(255,0,51,0.2)]">
+                <i class="fa-solid fa-bolt text-xs"></i> تنفيذ فوري وتلقائي لجميع الطلبات
             </div>
-            <div class="bg-arcCard neon-border-subtle p-4 rounded-2xl text-center">
-                <div class="text-2xl font-black text-white mb-1" id="statClients">0</div>
-                <div class="text-xs text-gray-400">عميل سعيد</div>
-            </div>
-            <div class="bg-arcCard neon-border-subtle p-4 rounded-2xl text-center">
-                <div class="text-2xl font-black text-arcRed neon-text mb-1">4.9/5</div>
-                <div class="text-xs text-gray-400">تقييم المتجر</div>
-            </div>
-            <div class="bg-arcCard neon-border-subtle p-4 rounded-2xl text-center">
-                <div class="text-2xl font-black text-white mb-1">100%</div>
-                <div class="text-xs text-gray-400">ضمان وتسليم سريع</div>
+            
+            <h2 class="text-3xl md:text-5xl font-black text-white tracking-wide">
+                عزز حضورك الرقمي مع <span class="text-arcRed neon-text">ARC STORE</span>
+            </h2>
+            <p class="text-xs md:text-sm text-gray-400 max-w-2xl mx-auto">
+                أسرع متجر لزيادة المتابعين، المشاهدات والاشتراكات الرقمية بأعلى جودة وضمان كامل.
+            </p>
+
+            <!-- الإحصائيات مع حركة تزايد الأرقام -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 max-w-4xl mx-auto">
+                <div class="bg-arcCard neon-border-subtle p-5 rounded-2xl text-center">
+                    <div class="text-3xl md:text-4xl font-black text-arcRed counter-glow mb-1" id="statOrders">0</div>
+                    <div class="text-xs text-gray-400 font-bold">طلبات مكتملة</div>
+                </div>
+                <div class="bg-arcCard neon-border-subtle p-5 rounded-2xl text-center">
+                    <div class="text-3xl md:text-4xl font-black text-white mb-1" id="statClients">0</div>
+                    <div class="text-xs text-gray-400 font-bold">عميل سعيد</div>
+                </div>
+                <div class="bg-arcCard neon-border-subtle p-5 rounded-2xl text-center">
+                    <div class="text-3xl md:text-4xl font-black text-arcRed counter-glow mb-1">4.9/5</div>
+                    <div class="text-xs text-gray-400 font-bold">تقييم المتجر</div>
+                </div>
+                <div class="bg-arcCard neon-border-subtle p-5 rounded-2xl text-center">
+                    <div class="text-3xl md:text-4xl font-black text-white mb-1">100%</div>
+                    <div class="text-xs text-gray-400 font-bold">تسليم ومتابعة</div>
+                </div>
             </div>
         </section>
 
-        <!-- فلتر الأقسام -->
-        <section class="mb-8">
-            <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none" id="categoryFilters">
+        <!-- الأقسام -->
+        <section>
+            <div class="flex items-center justify-center gap-3 overflow-x-auto pb-2 scrollbar-none" id="categoryFilters">
                 <!-- ينشأ ديناميكياً -->
             </div>
         </section>
@@ -170,9 +160,25 @@
                 <!-- ينشأ ديناميكياً -->
             </div>
         </section>
+
+        <!-- قسم آراء وتقييمات العملاء أسفل الصفحة -->
+        <section class="border-t border-white/10 pt-10">
+            <div class="text-center mb-8">
+                <span class="text-arcRed font-bold text-xs uppercase tracking-widest block mb-1">CUSTOMER REVIEWS</span>
+                <h3 class="text-2xl font-black text-white flex items-center justify-center gap-2">
+                    آراء وتقييمات العملاء <span class="text-arcRed">★</span>
+                </h3>
+                <p class="text-xs text-gray-400 mt-1">تجارب حقيقية لعملائنا في ARC STORE</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="reviewsList">
+                <!-- التقييمات -->
+            </div>
+        </section>
+
     </main>
 
-    <!-- Drawer سلة التسوق -->
+    <!-- Drawer عربة التسوق -->
     <div id="cartDrawer" class="fixed inset-0 z-50 flex justify-end bg-black/80 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none">
         <div class="bg-arcCard w-full max-w-md h-full p-6 flex flex-col justify-between border-r border-arcRed/50 shadow-[0_0_30px_rgba(255,0,51,0.3)] overflow-y-auto">
             <div>
@@ -192,14 +198,12 @@
             </div>
 
             <div class="border-t border-white/10 pt-4 space-y-4">
-                <!-- كود الخصم -->
                 <div class="flex gap-2">
                     <input type="text" id="couponCode" placeholder="كود الخصم (جرب ARC2026)" class="bg-black border border-white/10 rounded-xl px-3 py-2 text-xs w-full text-white focus:border-arcRed outline-none">
                     <button onclick="applyCoupon()" class="bg-white/10 hover:bg-arcRed text-white text-xs px-4 py-2 rounded-xl transition font-bold">تطبيق</button>
                 </div>
                 <div id="couponMessage" class="text-xs font-bold hidden"></div>
 
-                <!-- الفاتورة -->
                 <div class="bg-black/60 p-4 rounded-xl space-y-2 text-xs border border-white/5">
                     <div class="flex justify-between text-gray-400">
                         <span>المجموع:</span>
@@ -215,7 +219,6 @@
                     </div>
                 </div>
 
-                <!-- بيانات الشراء -->
                 <div class="space-y-2">
                     <input type="text" id="custName" placeholder="الاسم الكامل *" class="bg-black border border-white/10 rounded-xl px-3 py-2 text-xs w-full text-white outline-none focus:border-arcRed">
                     <input type="email" id="custEmail" placeholder="البريد الإلكتروني *" class="bg-black border border-white/10 rounded-xl px-3 py-2 text-xs w-full text-white outline-none focus:border-arcRed">
@@ -232,11 +235,16 @@
     </div>
 
     <!-- الفوتر -->
-    <footer class="bg-black border-t border-white/10 py-6 text-center text-xs text-gray-500">
+    <footer class="bg-black border-t border-white/10 py-6 text-center text-xs text-gray-500 space-y-2">
+        <div>
+            <a href="https://wa.me/966500000000" target="_blank" class="text-emerald-400 hover:underline font-bold inline-flex items-center gap-1">
+                <i class="fa-brands fa-whatsapp"></i> قسم دعم الحسابات المباشر
+            </a>
+        </div>
         <p>جميع الحقوق محفوظة © 2026 لمتجر <span class="text-arcRed font-bold">ARC STORE</span></p>
     </footer>
 
-    <!-- السكريبت والمنطق البرمجي -->
+    <!-- المنطق البرمجي -->
     <script>
         const DEFAULT_CATEGORIES = ['الكل', 'إنستغرام', 'تيك توك', 'اشتراكات رقمية'];
         const DEFAULT_PRODUCTS = [
@@ -245,9 +253,9 @@
             { id: 3, name: 'اشتراك نتفليكس شهر كامل', category: 'اشتراكات رقمية', minQty: 1, maxQty: 10, priceAED: 35, img: 'https://cdn-icons-png.flaticon.com/512/732/732228.png' }
         ];
         const DEFAULT_REVIEWS = [
-            { name: "عبدالله العتيبي", comment: "أفضل متجر تعاملت معه، سرعة في تنفيذ المتابعين فورية!", stars: 5, date: "قبل ساعة" },
-            { name: "سارة الشمري", comment: "خدمة الاشتراكات ممتازة وشغال معي بدون أي انقطاع.", stars: 5, date: "قبل 3 ساعات" },
-            { name: "محمد الشحي", comment: "دعم فني متجاوب وسريع بالواتساب. شكراً لكم!", stars: 5, date: "قبل يوم" }
+            { name: "عبدالله العتيبي", comment: "أفضل متجر تعاملت معه، سرعة في تنفيذ المتابعين فورية وبدون نقص!", stars: 5, date: "قبل 15 دقيقة" },
+            { name: "سارة الشمري", comment: "خدمة الاشتراكات ممتازة والتسليم فوري بالواتساب. شكراً لكم!", stars: 5, date: "قبل ساعتين" },
+            { name: "محمد الشحي", comment: "دعم فني ممتاز وثقة، اشتراك شغال 100%. ينصح بالتعامل معهم.", stars: 5, date: "قبل 5 ساعات" }
         ];
 
         let categories = JSON.parse(localStorage.getItem('arc_categories')) || DEFAULT_CATEGORIES;
@@ -255,7 +263,7 @@
         let orders = JSON.parse(localStorage.getItem('arc_orders')) || [];
         
         let cart = [];
-        let currentCurrency = 'AED'; // الدرهم هو الأساس
+        let currentCurrency = 'AED';
         let discountPercent = 0;
         let activeCategory = 'الكل';
 
@@ -267,38 +275,39 @@
             renderProducts();
             animateCounters();
             renderReviews();
-            setTimeout(openReviewsModal, 1000);
         };
 
         function animateCounters() {
-            let targetOrders = 1480 + orders.length;
-            let targetClients = 1250;
+            let targetOrders = 1850 + orders.length;
+            let targetClients = 1420;
             let c1 = 0, c2 = 0;
+            
             let timer = setInterval(() => {
-                if(c1 < targetOrders) c1 += 25; else c1 = targetOrders;
-                if(c2 < targetClients) c2 += 20; else c2 = targetClients;
-                document.getElementById('statOrders').innerText = c1 + "+";
-                document.getElementById('statClients').innerText = c2 + "+";
+                if(c1 < targetOrders) c1 += 30; else c1 = targetOrders;
+                if(c2 < targetClients) c2 += 25; else c2 = targetClients;
+                
+                document.getElementById('statOrders').innerText = c1.toLocaleString() + "+";
+                document.getElementById('statClients').innerText = c2.toLocaleString() + "+";
+                
                 if(c1 === targetOrders && c2 === targetClients) clearInterval(timer);
-            }, 30);
+            }, 25);
         }
 
         function renderReviews() {
             const list = document.getElementById('reviewsList');
             list.innerHTML = DEFAULT_REVIEWS.map(r => `
-                <div class="bg-black/60 border border-white/10 p-3 rounded-xl">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="font-bold text-xs text-white">${r.name}</span>
-                        <span class="text-amber-400 text-xs">${'★'.repeat(r.stars)}</span>
+                <div class="bg-arcCard neon-border-subtle p-5 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-bold text-sm text-white">${r.name}</h4>
+                            <span class="text-amber-400 text-xs">${'★'.repeat(r.stars)}</span>
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed">${r.comment}</p>
                     </div>
-                    <p class="text-xs text-gray-300 mb-1">${r.comment}</p>
-                    <span class="text-[10px] text-gray-500">${r.date}</span>
+                    <span class="text-[10px] text-gray-500 mt-4 block">${r.date}</span>
                 </div>
             `).join('');
         }
-
-        function openReviewsModal() { document.getElementById('reviewsModal').classList.remove('hidden'); }
-        function closeReviewsModal() { document.getElementById('reviewsModal').classList.add('hidden'); }
 
         function changeCurrency(curr) {
             currentCurrency = curr;
@@ -309,7 +318,7 @@
         function renderCategories() {
             const container = document.getElementById('categoryFilters');
             container.innerHTML = categories.map(cat => `
-                <button onclick="filterCategory('${cat}')" class="px-4 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap ${activeCategory === cat ? 'neon-btn text-white shadow-lg' : 'bg-arcCard text-gray-400 hover:text-white border border-white/10'}">
+                <button onclick="filterCategory('${cat}')" class="px-5 py-2.5 rounded-xl text-xs font-bold transition whitespace-nowrap ${activeCategory === cat ? 'neon-btn text-white shadow-lg' : 'bg-arcCard text-gray-400 hover:text-white border border-white/10'}">
                     ${cat}
                 </button>
             `).join('');
@@ -485,7 +494,7 @@
             orders.unshift({ id: Date.now(), name, phone, email, account, items: cart, date: new Date().toLocaleString() });
             localStorage.setItem('arc_orders', JSON.stringify(orders));
 
-            const whatsappNumber = "966500000000";
+            const whatsappNumber = "966500000000"; // اكتب رقم الواتساب الخاص بك هنا
             window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
