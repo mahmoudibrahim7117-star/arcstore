@@ -77,7 +77,7 @@ footer a{color:var(--rd2);cursor:pointer}
 .dp{position:absolute;top:0;bottom:0;left:0;width:min(440px,100%);background:#070708;border-right:1px solid var(--rd);box-shadow:0 0 40px rgba(255,26,46,.4);display:flex;flex-direction:column;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
 .dh{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--ln)}
 .dh h3{margin:0;font-size:1.2rem}
-.sc{flex:1;overflow-y:auto;padding:12px 16px}.cf{display:grid;gap:8px;margin-top:8px}.cf h4{margin:6px 0 0;font-size:1rem}.ph2{display:grid;grid-template-columns:130px 1fr;gap:6px}.cc{display:grid;grid-template-columns:1fr auto;gap:6px}.desc{color:var(--mt);font-size:.85rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.eta{font-size:.82rem;color:var(--rd2)}.dis{color:#4ade80;font-size:.9rem;text-align:left;direction:ltr;min-height:1.2em}
+.sc{flex:1;overflow-y:auto;padding:12px 16px}.cf{display:grid;gap:8px;margin-top:8px}.cf h4{margin:6px 0 0;font-size:1rem}.ph2{display:grid;grid-template-columns:130px 1fr;gap:6px}.cc{display:grid;grid-template-columns:1fr auto;gap:6px}.desc{color:var(--mt);font-size:.85rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.old{font-size:.9rem;color:var(--mt);direction:ltr;text-align:right}.old s{text-decoration-color:var(--rd)}.off{background:var(--rd);color:#fff;border-radius:6px;padding:0 8px;font-weight:800;margin-inline-start:6px;box-shadow:0 0 10px rgba(255,26,46,.6)}.eta{font-size:.82rem;color:var(--rd2)}.dis{color:#4ade80;font-size:.9rem;text-align:left;direction:ltr;min-height:1.2em}
 .ci{border:1px solid var(--ln);border-radius:12px;padding:10px;margin-bottom:10px;background:var(--pn)}
 .ci .t{display:flex;gap:10px;align-items:center}
 .ci .th{width:54px;height:54px;border-radius:8px;overflow:hidden;background:#000;flex:none;display:flex;align-items:center;justify-content:center}
@@ -167,6 +167,7 @@ function N(n){return Number(n).toLocaleString('en-US')}
 function stp(p){return p.per>1?p.min:1}
 function clamp(p,q){q=parseInt(q)||p.min;return Math.min(p.max,Math.max(p.min,q))}
 function line(p,q){return conv(p.price*q/p.per)}
+function oldP(p){var o=+p.old;if(!(o>p.price))return '';var pc=Math.round((1-p.price/o)*100);return '<div class="old"><s>'+(p.per>1?fmt(conv(o))+' / '+N(p.per):fmt(conv(o))+' / '+p.unit)+'</s><span class="off">−'+pc+'%</span></div>'}
 function img(p){return p.img?'<img src="'+p.img+'" alt="">':'<div class="ph">ARC</div>'}
 function unitPrice(p){return p.per>1?fmt(conv(p.price))+' / '+N(p.per):fmt(conv(p.price))+' / '+p.unit}
 
@@ -177,7 +178,7 @@ function renderTabs(){if(!S.cats.some(function(c){return c.id===curCat}))curCat=
 $('tabs').onclick=function(e){var id=e.target.dataset.id;if(id){curCat=id;renderTabs();renderProds()}};
 function renderProds(){var l=S.prods.filter(function(p){return p.cat===curCat});
  $('pgrid').innerHTML=l.length?l.map(function(p){var q=Q[p.id]=clamp(p,Q[p.id]);
-  return '<div class="card" data-id="'+p.id+'"><div class="pimg">'+img(p)+'</div><h3>'+esc(p.name)+'</h3>'+(p.desc?'<div class="desc">'+esc(p.desc)+'</div>':'')+(p.eta?'<div class="eta">⏱ مدة التنفيذ: '+esc(p.eta)+'</div>':'')+'<div class="pr">'+unitPrice(p)+'</div><small>الكمية: من '+N(p.min)+' إلى '+N(p.max)+'</small><div class="qrow"><button data-a="m">−</button><input class="fld" type="number" inputmode="numeric" value="'+q+'"><button data-a="p">+</button></div><div class="lt">الإجمالي: <b>'+fmt(line(p,q))+'</b></div><button class="btn pick" data-a="add">أضف إلى السلة</button></div>'}).join(''):'<p class="sub">لا توجد منتجات في هذا القسم حالياً.</p>'}
+  return '<div class="card" data-id="'+p.id+'"><div class="pimg">'+img(p)+'</div><h3>'+esc(p.name)+'</h3>'+(p.desc?'<div class="desc">'+esc(p.desc)+'</div>':'')+(p.eta?'<div class="eta">⏱ مدة التنفيذ: '+esc(p.eta)+'</div>':'')+'<div class="pr">'+unitPrice(p)+'</div>'+oldP(p)+'<small>الكمية: من '+N(p.min)+' إلى '+N(p.max)+'</small><div class="qrow"><button data-a="m">−</button><input class="fld" type="number" inputmode="numeric" value="'+q+'"><button data-a="p">+</button></div><div class="lt">الإجمالي: <b>'+fmt(line(p,q))+'</b></div><button class="btn pick" data-a="add">أضف إلى السلة</button></div>'}).join(''):'<p class="sub">لا توجد منتجات في هذا القسم حالياً.</p>'}
 function cardUpd(c){var p=P(c.dataset.id),i=c.querySelector('input');c.querySelector('.lt b').textContent=fmt(line(p,clamp(p,i.value)))}
 $('pgrid').onclick=function(e){var a=e.target.dataset.a,c=e.target.closest('.card');if(!a||!c)return;var p=P(c.dataset.id),i=c.querySelector('input'),q=clamp(p,i.value);
  if(a==='m')q=clamp(p,q-stp(p));if(a==='p')q=clamp(p,q+stp(p));
