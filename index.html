@@ -223,6 +223,7 @@ $('go').onclick=function(){var er=$('err');er.textContent='';if(!C.length)return
  m+='\n💵 الإجمالي: '+fmt(s-d)+' ('+curC+')';
  if($('cnote').value.trim())m+='\n📝 ملاحظات: '+$('cnote').value.trim();
  m+='\n\n🔖 كود الطلب (للإدارة): ARCX:'+btoa(unescape(encodeURIComponent(JSON.stringify(o))));
+ if(S.ordersUrl){try{fetch(S.ordersUrl,{method:'POST',mode:'no-cors',keepalive:true,body:JSON.stringify({action:'add',order:o})})}catch(e){}}
  window.open('https://wa.me/'+S.wa.replace(/\D/g,'')+'?text='+encodeURIComponent(m),'_blank')};
 
 /* reveal + counters */
