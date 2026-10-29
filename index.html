@@ -197,7 +197,7 @@ function cTot(){var s=sub(),d=dis();$('cdis').textContent=d>0?'خصم ('+D.code+
 $('cartBody').onclick=function(e){var a=e.target.dataset.a,r=e.target.closest('.ci');if(!a||!r)return;var x=C[r.dataset.i],p=P(x.id);
  if(a==='del')C.splice(r.dataset.i,1);if(a==='m')x.q=clamp(p,x.q-stp(p));if(a==='p')x.q=clamp(p,x.q+stp(p));renderCart()};
 $('cartBody').onchange=function(e){var r=e.target.closest('.ci');if(!r||e.target.dataset.acc!==undefined)return;var x=C[r.dataset.i];x.q=clamp(P(x.id),e.target.value);renderCart()};
-$('cartBody').oninput=function(e){if(e.target.dataset.acc!==undefined)C[e.target.closest('.ci').dataset.i].acc=e.target.value};
+$('cartBody').oninput=function(e){if(e.target.dataset.acc!==undefined)C[e.target.closest('.ci'].acc=e.target.value};
 $('openCart').onclick=function(){$('drawer').classList.add('open')};
 $('closeCart').onclick=function(){$('drawer').classList.remove('open')};
 $('drawer').onclick=function(e){if(e.target===this)this.classList.remove('open')};
@@ -215,6 +215,11 @@ $('go').onclick=function(){var er=$('err');er.textContent='';if(!C.length)return
   if(x.q<p.min||x.q>p.max){er.textContent=p.name+': الكمية بين '+N(p.min)+' و'+N(p.max);return}
   if(!x.acc.trim()){er.textContent='أدخل الحساب أو الرابط لـ: '+p.name;return}}
  var ph=$('cc').value+dg,s=sub(),d=dis(),no='ARC-'+Date.now().toString(36).toUpperCase().slice(-5)+Math.floor(Math.random()*90+10);
+ var o={no:no,t:Date.now(),nm:nm,em:em,ph:ph,cur:curC,it:C.map(function(x){var p=P(x.id);return{n:p.name,q:x.q,u:p.unit,a:x.acc.trim(),e:p.eta||'',l:+line(p,x.q).toFixed(2)}}),cd:D?D.code:'',sb:+s.toFixed(2),ds:+d.toFixed(2),tt:+(s-d).toFixed(2),st:'ordered',eta:(C[0]&&P(C[0].id).eta)||'',note:''};
+ 
+ /* حفظ الطلب تلقائياً في المتصفح ليظهر في صفحة الإدارة */
+ try{var ords=JSON.parse(localStorage.getItem('arcstore_orders'))||[];ords.unshift(o);localStorage.setItem('arcstore_orders',JSON.stringify(ords));}catch(e){}
+
  var m='مرحباً ARC STORE 👋\nأرغب بإتمام الطلب رقم: '+no+'\n\n👤 الاسم: '+nm+'\n📧 البريد: '+em+'\n📱 الهاتف: +'+ph+'\n';
  C.forEach(function(x,k){var p=P(x.id);m+='\n'+(k+1)+') '+p.name+'\n   🔢 الكمية: '+N(x.q)+' '+p.unit+'\n   💰 السعر: '+fmt(line(p,x.q))+'\n   🔗 الحساب: '+x.acc.trim()+(p.eta?'\n   ⏱ مدة التنفيذ: '+p.eta:'')+'\n'});
  if(D)m+='\n🏷️ كود الخصم: '+D.code+' (−'+fmt(d)+')';
