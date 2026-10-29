@@ -92,7 +92,6 @@ footer a{color:var(--rd2);cursor:pointer}
 .err{color:var(--rd2);font-size:.88rem;min-height:1.4em;margin-top:6px;text-align:center}
 .x{background:none;border:1px solid var(--ln);color:var(--rd2);border-radius:8px;cursor:pointer;padding:5px 12px}
 .x:hover{background:var(--rd);color:#fff}
-/* admin */
 .tt{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--rd);padding:10px 22px;border-radius:10px;z-index:99;box-shadow:0 0 24px var(--rd);display:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
@@ -153,9 +152,9 @@ footer a{color:var(--rd2);cursor:pointer}
 
 <script src="data.js"></script>
 <script>
-var KEY='arcstore_draft3',CS={AED:'د.إ',SAR:'ر.س',USD:'$'};
+var CS={AED:'د.إ',SAR:'ر.س',USD:'$'};
 function $(i){return document.getElementById(i)}
-function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&','<':'<','>':'>','"':'"'}[c]})}
 var DEF={"wa":"966500000000","pass":"1234","rates":{"AED":1,"SAR":1.02,"USD":0.2723},"cats":[{"id":"c1","name":"المتابعين"},{"id":"c2","name":"المشاهدات"},{"id":"c3","name":"الاشتراكات"}],"prods":[{"id":"p1","cat":"c1","name":"متابعين انستغرام","price":15,"per":1000,"min":250,"max":100000,"unit":"متابع","img":"","desc":"متابعين لحساب انستغرام. يبدأ التنفيذ بعد تأكيد الطلب.","eta":"من 1 إلى 24 ساعة"},{"id":"p2","cat":"c1","name":"متابعين تيك توك","price":18,"per":1000,"min":250,"max":100000,"unit":"متابع","img":"","desc":"متابعين لحساب تيك توك. يبدأ التنفيذ بعد تأكيد الطلب.","eta":"من 1 إلى 24 ساعة"},{"id":"p3","cat":"c2","name":"مشاهدات تيك توك","price":2.2,"per":1000,"min":250,"max":1000000,"unit":"مشاهدة","img":"","desc":"مشاهدات لفيديوهات تيك توك. أرسل رابط الفيديو عند الطلب.","eta":"خلال 6 ساعات"},{"id":"p4","cat":"c2","name":"مشاهدات انستغرام ريلز","price":2,"per":1000,"min":250,"max":1000000,"unit":"مشاهدة","img":"","desc":"مشاهدات لريلز انستغرام. أرسل رابط الريلز عند الطلب.","eta":"خلال 6 ساعات"},{"id":"p5","cat":"c3","name":"اشتراك نتفليكس شهر","price":15,"per":1,"min":1,"max":12,"unit":"اشتراك","img":"","desc":"اشتراك نتفليكس لمدة شهر. أرسل بريدك عند الطلب.","eta":"خلال ساعة"},{"id":"p6","cat":"c3","name":"اشتراك سبوتيفاي شهر","price":11,"per":1,"min":1,"max":12,"unit":"اشتراك","img":"","desc":"اشتراك سبوتيفاي لمدة شهر. أرسل بريدك عند الطلب.","eta":"خلال ساعة"}],"codes":[]};
 var S=JSON.parse(JSON.stringify(window.ARC_DATA||DEF));S.codes=S.codes||[];
 var curC='AED',curCat=null,Q={},C=[],D=null;
@@ -216,14 +215,11 @@ $('go').onclick=function(){var er=$('err');er.textContent='';if(!C.length)return
   if(x.q<p.min||x.q>p.max){er.textContent=p.name+': الكمية بين '+N(p.min)+' و'+N(p.max);return}
   if(!x.acc.trim()){er.textContent='أدخل الحساب أو الرابط لـ: '+p.name;return}}
  var ph=$('cc').value+dg,s=sub(),d=dis(),no='ARC-'+Date.now().toString(36).toUpperCase().slice(-5)+Math.floor(Math.random()*90+10);
- var o={no:no,t:Date.now(),nm:nm,em:em,ph:ph,cur:curC,it:C.map(function(x){var p=P(x.id);return{n:p.name,q:x.q,u:p.unit,a:x.acc.trim(),e:p.eta||'',l:+line(p,x.q).toFixed(2)}}),cd:D?D.code:'',sb:+s.toFixed(2),ds:+d.toFixed(2),tt:+(s-d).toFixed(2)};
  var m='مرحباً ARC STORE 👋\nأرغب بإتمام الطلب رقم: '+no+'\n\n👤 الاسم: '+nm+'\n📧 البريد: '+em+'\n📱 الهاتف: +'+ph+'\n';
  C.forEach(function(x,k){var p=P(x.id);m+='\n'+(k+1)+') '+p.name+'\n   🔢 الكمية: '+N(x.q)+' '+p.unit+'\n   💰 السعر: '+fmt(line(p,x.q))+'\n   🔗 الحساب: '+x.acc.trim()+(p.eta?'\n   ⏱ مدة التنفيذ: '+p.eta:'')+'\n'});
  if(D)m+='\n🏷️ كود الخصم: '+D.code+' (−'+fmt(d)+')';
  m+='\n💵 الإجمالي: '+fmt(s-d)+' ('+curC+')';
  if($('cnote').value.trim())m+='\n📝 ملاحظات: '+$('cnote').value.trim();
- m+='\n\n🔖 كود الطلب (للإدارة): ARCX:'+btoa(unescape(encodeURIComponent(JSON.stringify(o))));
- if(S.ordersUrl){try{fetch(S.ordersUrl,{method:'POST',mode:'no-cors',keepalive:true,body:JSON.stringify({action:'add',order:o})})}catch(e){}}
  window.open('https://wa.me/'+S.wa.replace(/\D/g,'')+'?text='+encodeURIComponent(m),'_blank')};
 
 /* reveal + counters */
