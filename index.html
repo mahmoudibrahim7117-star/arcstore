@@ -150,13 +150,16 @@ footer a{color:var(--rd2);cursor:pointer}
 </div></div>
 <div class="tt" id="tt"></div>
 
-<script src="data.js"></script>
 <script>
 var CS={AED:'د.إ',SAR:'ر.س',USD:'$'};
 function $(i){return document.getElementById(i)}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&','<':'<','>':'>','"':'"'}[c]})}
 var DEF={"wa":"966500000000","pass":"1234","rates":{"AED":1,"SAR":1.02,"USD":0.2723},"cats":[{"id":"c1","name":"المتابعين"},{"id":"c2","name":"المشاهدات"},{"id":"c3","name":"الاشتراكات"}],"prods":[{"id":"p1","cat":"c1","name":"متابعين انستغرام","price":15,"per":1000,"min":250,"max":100000,"unit":"متابع","img":"","desc":"متابعين لحساب انستغرام. يبدأ التنفيذ بعد تأكيد الطلب.","eta":"من 1 إلى 24 ساعة"},{"id":"p2","cat":"c1","name":"متابعين تيك توك","price":18,"per":1000,"min":250,"max":100000,"unit":"متابع","img":"","desc":"متابعين لحساب تيك توك. يبدأ التنفيذ بعد تأكيد الطلب.","eta":"من 1 إلى 24 ساعة"},{"id":"p3","cat":"c2","name":"مشاهدات تيك توك","price":2.2,"per":1000,"min":250,"max":1000000,"unit":"مشاهدة","img":"","desc":"مشاهدات لفيديوهات تيك توك. أرسل رابط الفيديو عند الطلب.","eta":"خلال 6 ساعات"},{"id":"p4","cat":"c2","name":"مشاهدات انستغرام ريلز","price":2,"per":1000,"min":250,"max":1000000,"unit":"مشاهدة","img":"","desc":"مشاهدات لريلز انستغرام. أرسل رابط الريلز عند الطلب.","eta":"خلال 6 ساعات"},{"id":"p5","cat":"c3","name":"اشتراك نتفليكس شهر","price":15,"per":1,"min":1,"max":12,"unit":"اشتراك","img":"","desc":"اشتراك نتفليكس لمدة شهر. أرسل بريدك عند الطلب.","eta":"خلال ساعة"},{"id":"p6","cat":"c3","name":"اشتراك سبوتيفاي شهر","price":11,"per":1,"min":1,"max":12,"unit":"اشتراك","img":"","desc":"اشتراك سبوتيفاي لمدة شهر. أرسل بريدك عند الطلب.","eta":"خلال ساعة"}],"codes":[]};
-var S=JSON.parse(JSON.stringify(window.ARC_DATA||DEF));S.codes=S.codes||[];
+
+var S;
+try{S=JSON.parse(localStorage.getItem('arcstore_data'))||DEF;}catch(e){S=DEF;}
+S.codes=S.codes||[];
+
 var curC='AED',curCat=null,Q={},C=[],D=null;
 function toast(m){var t=$('tt');t.textContent=m;t.style.display='block';clearTimeout(t._h);t._h=setTimeout(function(){t.style.display='none'},2800)}
 function P(id){return S.prods.filter(function(p){return p.id===id})[0]}
@@ -197,7 +200,7 @@ function cTot(){var s=sub(),d=dis();$('cdis').textContent=d>0?'خصم ('+D.code+
 $('cartBody').onclick=function(e){var a=e.target.dataset.a,r=e.target.closest('.ci');if(!a||!r)return;var x=C[r.dataset.i],p=P(x.id);
  if(a==='del')C.splice(r.dataset.i,1);if(a==='m')x.q=clamp(p,x.q-stp(p));if(a==='p')x.q=clamp(p,x.q+stp(p));renderCart()};
 $('cartBody').onchange=function(e){var r=e.target.closest('.ci');if(!r||e.target.dataset.acc!==undefined)return;var x=C[r.dataset.i];x.q=clamp(P(x.id),e.target.value);renderCart()};
-$('cartBody').oninput=function(e){if(e.target.dataset.acc!==undefined)C[e.target.closest('.ci'].acc=e.target.value};
+$('cartBody').oninput=function(e){if(e.target.dataset.acc!==undefined)C[e.target.closest('.ci').dataset.i].acc=e.target.value};
 $('openCart').onclick=function(){$('drawer').classList.add('open')};
 $('closeCart').onclick=function(){$('drawer').classList.remove('open')};
 $('drawer').onclick=function(e){if(e.target===this)this.classList.remove('open')};
@@ -206,33 +209,4 @@ $('capp').onclick=function(){var v=$('cd').value.trim().toUpperCase(),m=$('cmsg'
  var c=S.codes.filter(function(x){return x.on!==false&&String(x.code).toUpperCase()===v})[0];
  if(!c){D=null;m.style.color='var(--rd2)';m.textContent='كود الخصم غير صحيح أو غير مفعّل';cTot();return}
  D=c;m.style.color='#4ade80';m.textContent='تم تطبيق الكود '+c.code+' ✓';cTot()};
-$('go').onclick=function(){var er=$('err');er.textContent='';if(!C.length)return;
- var nm=$('cn').value.trim(),em=$('ce').value.trim(),dg=$('cp').value.replace(/\D/g,'').replace(/^0+/,'');
- if(nm.length<2){er.textContent='أدخل اسمك';return}
- if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){er.textContent='أدخل بريداً إلكترونياً صحيحاً';return}
- if(dg.length<6||dg.length>12){er.textContent='أدخل رقم هاتف صحيحاً (بدون كود الدولة)';return}
- for(var i=0;i<C.length;i++){var x=C[i],p=P(x.id);
-  if(x.q<p.min||x.q>p.max){er.textContent=p.name+': الكمية بين '+N(p.min)+' و'+N(p.max);return}
-  if(!x.acc.trim()){er.textContent='أدخل الحساب أو الرابط لـ: '+p.name;return}}
- var ph=$('cc').value+dg,s=sub(),d=dis(),no='ARC-'+Date.now().toString(36).toUpperCase().slice(-5)+Math.floor(Math.random()*90+10);
- var o={no:no,t:Date.now(),nm:nm,em:em,ph:ph,cur:curC,it:C.map(function(x){var p=P(x.id);return{n:p.name,q:x.q,u:p.unit,a:x.acc.trim(),e:p.eta||'',l:+line(p,x.q).toFixed(2)}}),cd:D?D.code:'',sb:+s.toFixed(2),ds:+d.toFixed(2),tt:+(s-d).toFixed(2),st:'ordered',eta:(C[0]&&P(C[0].id).eta)||'',note:''};
- 
- /* حفظ الطلب تلقائياً في المتصفح ليظهر في صفحة الإدارة */
- try{var ords=JSON.parse(localStorage.getItem('arcstore_orders'))||[];ords.unshift(o);localStorage.setItem('arcstore_orders',JSON.stringify(ords));}catch(e){}
-
- var m='مرحباً ARC STORE 👋\nأرغب بإتمام الطلب رقم: '+no+'\n\n👤 الاسم: '+nm+'\n📧 البريد: '+em+'\n📱 الهاتف: +'+ph+'\n';
- C.forEach(function(x,k){var p=P(x.id);m+='\n'+(k+1)+') '+p.name+'\n   🔢 الكمية: '+N(x.q)+' '+p.unit+'\n   💰 السعر: '+fmt(line(p,x.q))+'\n   🔗 الحساب: '+x.acc.trim()+(p.eta?'\n   ⏱ مدة التنفيذ: '+p.eta:'')+'\n'});
- if(D)m+='\n🏷️ كود الخصم: '+D.code+' (−'+fmt(d)+')';
- m+='\n💵 الإجمالي: '+fmt(s-d)+' ('+curC+')';
- if($('cnote').value.trim())m+='\n📝 ملاحظات: '+$('cnote').value.trim();
- window.open('https://wa.me/'+S.wa.replace(/\D/g,'')+'?text='+encodeURIComponent(m),'_blank')};
-
-/* reveal + counters */
-var io=new IntersectionObserver(function(es){es.forEach(function(x){if(!x.isIntersecting)return;if(x.target.dataset.n)count(x.target);else x.target.classList.add('show');io.unobserve(x.target)})},{threshold:.2});
-function count(el){var n=+el.dataset.n,s=el.dataset.s||'',t0=performance.now();(function f(t){var k=Math.min((t-t0)/1800,1);el.textContent=Math.round(n*(1-Math.pow(1-k,3))).toLocaleString('en-US')+s;if(k<1)requestAnimationFrame(f)})(t0)}
-document.querySelectorAll('.rv,[data-n]').forEach(function(e){io.observe(e)});
-
-renderCur();renderTabs();renderProds();renderCart();
-</script>
-</body>
-</html>
+$('go
